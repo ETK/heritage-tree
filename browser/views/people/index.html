@@ -1,0 +1,68 @@
+<!-- filter bar -->
+<div class="container row">
+  <div class="col s4">
+    <input class="input-field" placeholder="Filter..." ng-model="filterText"/>
+  </div>
+
+</div>
+
+
+<!-- table of people -->
+<div class="container row col s12">
+
+  <ul class="collapsible popout" data-collapsible="accordion">
+    <li ng-repeat="person in people | filter:filterText">
+
+      <div class="collapsible-header">
+        <i class="material-icons">label_outline</i>
+        {{ person.last_name }}, {{ person.first_name }} {{ person.middle_name }}
+        ({{ person.birth_year }} - {{ person.death_year }})
+      </div>
+      <div class="collapsible-body">
+        <table>
+          <tbody>
+            <tr>
+              <td>Relation to Grandpa: {{ person.relation_to_grandpa }}</td>
+              <td>Born: {{ person.birth_year }} / {{ person.birth_month }} / {{ person.birth_day }} in {{ person.birth_place }}</td>
+              <td>Died: {{ person.death_year }} / {{ person.death_month }} / {{ person.death_day }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </li>
+  </ul>
+
+
+  <!-- <table class="bordered highlight">
+    <thead>
+      <tr>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Relation to Grandpa</th>
+        <th>Birth Place</th>
+        <th>Birth Date</th>
+        <th>Death Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="person in people | filter:filterText">
+        <td>{{ person.last_name }}</td>
+        <td>{{ person.first_name }} {{ person.middle_name }}</td>
+        <td>{{ person.relation_to_grandpa }}</td>
+        <td>{{ person.birth_place }}</td>
+        <td>{{ person.birth_year }} / {{ person.birth_month }} / {{ person.birth_day }}</td>
+        <td>{{ person.death_year }} / {{ person.death_month }} / {{ person.death_day }}</td>
+      </tr>
+    </tbody>
+  </table> -->
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+  });
+</script>

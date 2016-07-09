@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, $state) {
+app.directive('navbar', function ($rootScope) {
 
   return {
     restrict: 'E',

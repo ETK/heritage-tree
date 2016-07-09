@@ -1,6 +1,12 @@
 app.config(function ($stateProvider) {
   $stateProvider.state('people', {
     url: '/people',
-    templateUrl: 'js/views/people/index.html'
+    templateUrl: 'views/people/index.html',
+    controller: 'PeopleController',
+    resolve: {
+      people: function(PeopleFactory) {
+        return PeopleFactory.fetchAll();
+      }
+    }
   });
 });

@@ -3,3 +3,5 @@ npm-debug.log
 public/main.js
 public/style.css
 .DS_Store
+*.sqlite
+db/seeds/people.js

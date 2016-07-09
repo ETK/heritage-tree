@@ -1,0 +1,7 @@
+{
+  "development": {
+    "database": "heritage_tree",
+    "dialect": "sqlite",
+    "storage": "server/db/database.sqlite"
+  }
+}

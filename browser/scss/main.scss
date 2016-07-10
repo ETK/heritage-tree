@@ -20,8 +20,10 @@ body {
 }
 
 nav {
-  @extend .green, .lighten-2;
+  @extend .green, .lighten-1;
 }
+
+$roboto-font-path: "/materialize-css/fonts/roboto/";
 
 @import 'materialize/materialize';
 @import 'home';

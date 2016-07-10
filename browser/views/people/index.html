@@ -14,12 +14,14 @@
     <li ng-repeat="person in people | filter:filterText">
 
       <div class="collapsible-header">
-        <i class="material-icons">label_outline</i>
+        <i class="fa fa-male" ng-if=" person.gender == 'M' "></i>
+        <i class="fa fa-female" ng-if=" person.gender == 'F' "></i>
         {{ person.last_name }}, {{ person.first_name }} {{ person.middle_name }}
-        ({{ person.birth_year }} - {{ person.death_year }})
+        ({{ person.birth_year }} - {{ person.death_year }} {{ person.gender }})
       </div>
       <div class="collapsible-body">
-        <table>
+        <person-popout person="person"></person-popout>
+        <!-- <table>
           <tbody>
             <tr>
               <td>Relation to Grandpa: {{ person.relation_to_grandpa }}</td>
@@ -27,36 +29,12 @@
               <td>Died: {{ person.death_year }} / {{ person.death_month }} / {{ person.death_day }}</td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
 
     </li>
   </ul>
 
-
-  <!-- <table class="bordered highlight">
-    <thead>
-      <tr>
-        <th>Last Name</th>
-        <th>First Name</th>
-        <th>Relation to Grandpa</th>
-        <th>Birth Place</th>
-        <th>Birth Date</th>
-        <th>Death Date</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr ng-repeat="person in people | filter:filterText">
-        <td>{{ person.last_name }}</td>
-        <td>{{ person.first_name }} {{ person.middle_name }}</td>
-        <td>{{ person.relation_to_grandpa }}</td>
-        <td>{{ person.birth_place }}</td>
-        <td>{{ person.birth_year }} / {{ person.birth_month }} / {{ person.birth_day }}</td>
-        <td>{{ person.death_year }} / {{ person.death_month }} / {{ person.death_day }}</td>
-      </tr>
-    </tbody>
-  </table> -->
 </div>
 
 <script>

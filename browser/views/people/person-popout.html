@@ -1,0 +1,80 @@
+<div class="row person-popout-box">
+  <div class="col s12">
+
+    <!-- Name -->
+    <div class="row">
+      <div class="input-field col s4">
+        <input id="first_name_{{ person.id }}" type="text" class="validate" ng-model="person.first_name" ng-change="update(person)">
+        <label for="first_name_{{ person.id }}" class="active">First Name</label>
+      </div>
+      <div class="input-field col s3">
+        <input id="middle_name_{{ person.id }}" type="text" class="validate" ng-model="person.middle_name" ng-change="update(person)">
+        <label for="middle_name_{{ person.id }}" class="active">Middle Name</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="last_name_{{ person.id }}" type="text" class="validate" ng-model="person.last_name" ng-change="update(person)">
+        <label for="last_name_{{ person.id }}" class="active">Last Name</label>
+      </div>
+      <div class="input-field col s1">
+        <input id="suffix_{{ person.id }}" type="text" class="validate" ng-model="person.suffix" ng-change="update(person)">
+        <label for="suffix_{{ person.id }}" class="active">Suffix</label>
+      </div>
+    </div>
+
+    <!-- Born -->
+    <div class="row">
+      <div class="col s2 form-category">
+        Born
+      </div>
+      <div class="input-field col s3">
+        <input id="birth_year_{{ person.id }}" type="text" class="validate" ng-model="person.birth_year" ng-change="update(person)" length="4">
+        <label for="birth_year_{{ person.id }}" class="active">Year</label>
+      </div>
+      <div class="input-field col s1">
+        <input id="birth_month_{{ person.id }}" type="text" class="validate" ng-model="person.birth_month" ng-change="update(person)" length="2">
+        <label for="birth_month_{{ person.id }}" class="active">Month</label>
+      </div>
+      <div class="input-field col s1">
+        <input id="birth_day_{{ person.id }}" type="text" class="validate" ng-model="person.birth_day" ng-change="update(person)" length="2">
+        <label for="birth_day_{{ person.id }}" class="active">Day</label>
+      </div>
+      <div class="input-field col s5">
+        <input id="birth_place_{{ person.id }}" type="text" class="validate" ng-model="person.birth_place" ng-change="update(person)">
+        <label for="birth_place_{{ person.id }}" class="active">Place</label>
+      </div>
+    </div>
+
+    <!-- Died -->
+    <div class="row">
+      <div class="col s2 form-category">
+        Died
+      </div>
+      <div class="input-field col s3">
+        <input id="death_year_{{ person.id }}" type="text" class="validate" ng-model="person.death_year" ng-change="update(person)" length="4">
+        <label for="death_year_{{ person.id }}" class="active">Year</label>
+      </div>
+      <div class="input-field col s1">
+        <input id="death_month_{{ person.id }}" type="text" class="validate" ng-model="person.death_month" ng-change="update(person)" length="2">
+        <label for="death_month_{{ person.id }}" class="active">Month</label>
+      </div>
+      <div class="input-field col s1">
+        <input id="death_day_{{ person.id }}" type="text" class="validate" ng-model="person.death_day" ng-change="update(person)" length="2">
+        <label for="death_day_{{ person.id }}" class="active">Day</label>
+      </div>
+      <div class="input-field col s5">
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="row">
+      <div class="col s2 form-category">
+        Notes
+      </div>
+      <div class="input-field col s10">
+        <textarea id="notes_{{ person.id }}" type="text" class="materialize-textarea" ng-model="person.notes" ng-change="update(person)"></textarea>
+        <label for="notes_{{ person.id }}" class="active">Notes</label>
+      </div>
+    </div>
+
+  </div>
+</div>

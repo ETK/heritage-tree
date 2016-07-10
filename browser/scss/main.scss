@@ -19,4 +19,10 @@ body {
   margin: 0 auto;
 }
 
+nav {
+  @extend .green, .lighten-2;
+}
+
+@import 'materialize/materialize';
 @import 'home';
+@import 'people';

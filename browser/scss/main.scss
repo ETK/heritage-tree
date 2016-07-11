@@ -18,21 +18,12 @@ body {
   background: #FFFFFF;
 }
 
-.brand-logo {
+.navbar-brand {
   font-weight: 300;
 }
 
 #main {
-  padding-top: 20px;
-  margin: 0 auto;
-}
-
-nav, footer {
-  @extend .green, .lighten-1;
-}
-
-.collapsible-body {
-  @extend .grey, .lighten-4;
+  margin-top: 70px;
 }
 
 h1, h2, h3, h4 {
@@ -40,12 +31,7 @@ h1, h2, h3, h4 {
 }
 
 .header {
-  @extend .green-text;
   font-weight: 300;
 }
 
-$roboto-font-path: "/materialize-css/fonts/roboto/";
-
-@import 'materialize/materialize';
-@import 'home';
 @import 'people';

@@ -5,3 +5,4 @@ public/style.css
 .DS_Store
 *.sqlite
 db/seeds/people.js
+reference/

@@ -21,7 +21,20 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        // person => parents association
+        Person.belongsToMany(models.Person, {
+          as: 'Parents',
+          through: 'Relations',
+          foreignKey: 'person_id',
+          // targetKey: 'person_id'
+        });
+        // person => children association
+        Person.belongsToMany(models.Person, {
+          as: 'Children',
+          through: 'Relations',
+          foreignKey: 'parent_id',
+          targetKey: 'parent_id'
+        });
       }
     }
   });

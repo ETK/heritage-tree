@@ -3,14 +3,33 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default" dir-paginate="person in people | filter:filterText | itemsPerPage: numPerPage" pagination-id="paginationId">
 
-    <div class="panel-heading person-list-panel"
+    <!-- Header -->
+    <div class="panel-heading person-list-panel person-list-header"
          id="#person-heading-{{ person.id }}"
          role="tab"
-         data-toggle="collapse"
-         data-target="#person-collapse-{{ person.id }}"
          aria-expanded="false">
-      <person-list-header person="person"></person-list-header>
+    <span class="person-name">
+      <a ui-sref="person({ personId: person.id })">{{ person.identifier }}</a>
+    </span>
+    <span class="person-location">
+      <span ng-if="person.settle_location"> | {{ person.settle_location }}</span>
+      <span ng-if="!person.settle_location && birth_location"> | {{ person.birth_location }}</span>
+    </span>
+    <span class="">
+      <button type="button" class="btn btn-xs btn-default"
+              data-toggle="collapse"
+              data-target="#person-collapse-{{ person.id }}">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+        quick edit
+      </button>
+      <button type="button" class="btn btn-xs btn-default" ng-click="removeRelation(person)">
+        <i class="fa fa-minus" aria-hidden="true"></i>
+        remove relation
+      </button>
+    </span>
     </div>
+
+    <!-- Collapsable body -->
     <div class="panel-collapse collapse"
          id="person-collapse-{{ person.id }}"
          role="tabpanel">

@@ -62,3 +62,13 @@ router.post('/:personId/children', function(req, res, next) {
   .then(person => res.send(person))
   .catch(next);
 });
+
+// delete relationship
+router.delete('/:personId/relationships/:relativeId', function(req, res, next) {
+  Promise.all([
+    req.person.removeParent(req.params.relativeId),
+    req.person.removeChild(req.params.relativeId)
+  ])
+  .then(() => res.status(204).end())
+  .catch(next);
+});

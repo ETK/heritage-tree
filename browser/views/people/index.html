@@ -16,15 +16,10 @@
     <li dir-paginate="person in people | filter:filterText | itemsPerPage: 15" pagination-id="people">
 
       <div class="collapsible-header people-list-header">
-        <span class="person-name">{{ person.full_name }}</span>
-        {{ person.dates }}
-        <span class="person-location">
-          <span ng-if="person.settle_location"> - {{ person.settle_location }}</span>
-          <span ng-if="!person.settle_location && birth_location"> - {{ person.birth_location }}</span>
-        </span>
+        <person-list-header person="person"></person-list-header>
       </div>
       <div class="collapsible-body">
-        <person-popout person="person" people="people"></person-popout>
+        <person-list-collapse person="person"></person-list-collapse>
       </div>
 
     </li>

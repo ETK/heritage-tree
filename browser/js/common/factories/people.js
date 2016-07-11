@@ -9,6 +9,11 @@ app.factory('PeopleFactory', function($http) {
       .then(res => res.data);
     },
 
+    fetchById: function(id) {
+      return $http.get(baseUrl + id)
+      .then(res => res.data);
+    },
+
     updatePerson: function(id, updates) {
       return $http.put(baseUrl + id, updates)
       .then(res => res.data);

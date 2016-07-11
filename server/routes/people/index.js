@@ -6,6 +6,14 @@ const Relations = db.model('Relations');
 
 module.exports = router;
 
+const includeRelations = { include: [{
+  model: People,
+  as: 'Parents'
+}, {
+  model: People,
+  as: 'Children'
+}] };
+
 router.param('personId', function(req, res, next, id) {
   People.findById(id)
   .then(function(person) {
@@ -17,15 +25,15 @@ router.param('personId', function(req, res, next, id) {
 
 // all people
 router.get('/', function(req, res, next) {
-  People.findAll({ include: [{
-    model: People,
-    as: 'Parents'
-  }, {
-    model: People,
-    as: 'Children'
-  }] })
+  People.findAll(includeRelations)
   .then(people => res.send(people))
   .catch(next);
+});
+
+// one person
+router.get('/:personId', function(req, res, next) {
+  People.findById(req.params.personId, includeRelations)
+  .then(person => res.send(person)).catch(next);
 });
 
 // update a person

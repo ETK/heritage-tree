@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-body {
-  background: #FFFFFF;
-}
-
 @mixin clearfix {
   &:after {
     content: "";
@@ -14,17 +10,38 @@ body {
   }
 }
 
+html {
+  font-weight: 300;
+}
+
+body {
+  background: #FFFFFF;
+}
+
+.brand-logo {
+  font-weight: 300;
+}
+
 #main {
-  padding-top: 60px;
+  padding-top: 20px;
   margin: 0 auto;
 }
 
-nav {
+nav, footer {
   @extend .green, .lighten-1;
 }
 
 .collapsible-body {
   @extend .grey, .lighten-4;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 300!important;
+}
+
+.header {
+  @extend .green-text;
+  font-weight: 300;
 }
 
 $roboto-font-path: "/materialize-css/fonts/roboto/";

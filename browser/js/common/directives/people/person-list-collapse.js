@@ -1,11 +1,10 @@
-app.directive('personPopout', function ($rootScope, PeopleFactory) {
+app.directive('personListCollapse', function ($rootScope, PeopleFactory) {
   return {
     restrict: 'E',
     scope: {
-      person: '=',
-      people: '='
+      person: '='
     },
-    templateUrl: 'views/people/person-popout.html',
+    templateUrl: 'views/people/person-list-collapse.html',
     link: function (scope) {
       scope.update = function(updates) {
         return PeopleFactory.updatePerson(scope.person.id, updates);

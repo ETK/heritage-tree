@@ -33,11 +33,32 @@ router.get('/', function(req, res, next) {
 // one person
 router.get('/:personId', function(req, res, next) {
   People.findById(req.params.personId, includeRelations)
-  .then(person => res.send(person)).catch(next);
+  .then(person => res.send(person))
+  .catch(next);
 });
 
 // update a person
 router.put('/:personId', function(req, res, next) {
   req.person.update(req.body)
   .then(updatedPerson => res.status(200).send(updatedPerson));
+});
+
+// add parent
+router.post('/:personId/parents', function(req, res, next) {
+  req.person.addParent(req.body.id)
+  .then( function() {
+    return People.findById(req.person.id, includeRelations);
+  })
+  .then(person => res.send(person))
+  .catch(next);
+});
+
+// add child
+router.post('/:personId/children', function(req, res, next) {
+  req.person.addChild(req.body.id)
+  .then( function() {
+    return People.findById(req.person.id, includeRelations);
+  })
+  .then(person => res.send(person))
+  .catch(next);
 });

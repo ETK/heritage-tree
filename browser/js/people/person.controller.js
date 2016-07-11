@@ -6,8 +6,18 @@ app.controller('PersonController', function ($scope, $state, people, person, Peo
     return PeopleFactory.updatePerson(scope.person.id, updates);
   }
 
-  $scope.addChild = function() {
-    
+  $scope.addParent = function(parent) {
+    return PeopleFactory.addParent($scope.person, parent)
+    .then( function(updatedPerson) {
+      $scope.person = updatedPerson;
+    });
+  }
+
+  $scope.addChild = function(child) {
+    return PeopleFactory.addChild($scope.person, child)
+    .then( function(updatedPerson) {
+      $scope.person = updatedPerson;
+    });
   }
 
 });

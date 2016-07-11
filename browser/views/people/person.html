@@ -37,7 +37,18 @@
         </li>
       </ul>
 
-      <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>add</a>
+      <div class="input-field">
+        <input
+           type="text"
+           id="parent_name"
+           class="validate"
+           ng-model="parent"
+           uib-typeahead="person as person.full_name for person in people | filter:$viewValue | limitTo:5"
+           typeahead-template-url="/views/common/typeahead.html"
+           typeahead-focus-first="false">
+        <label for="parent_name">Parent Name</label>
+        <a class="waves-effect waves-light btn" ng-click="addParent(parent)"><i class="material-icons left">add</i>add</a>
+      </div>
 
 
     </div>
@@ -67,7 +78,7 @@
            id="child_name"
            class="validate"
            ng-model="child"
-           uib-typeahead="person in people | filter:$viewValue | limitTo:5"
+           uib-typeahead="person as person.full_name for person in people | filter:$viewValue | limitTo:5"
            typeahead-template-url="/views/common/typeahead.html"
            typeahead-focus-first="false">
         <label for="child_name">Child Name</label>

@@ -17,6 +17,16 @@ app.factory('PeopleFactory', function($http) {
     updatePerson: function(id, updates) {
       return $http.put(baseUrl + id, updates)
       .then(res => res.data);
+    },
+
+    addParent: function(person, parent) {
+      return $http.post(baseUrl + person.id + '/parents', parent)
+      .then(res => res.data);
+    },
+
+    addChild: function(person, child) {
+      return $http.post(baseUrl + person.id + '/children', child)
+      .then(res => res.data);
     }
 
   }

@@ -36,6 +36,12 @@ module.exports = function(sequelize, DataTypes) {
         } else dates += '--';
         return dates += ')';
       }
+    },
+    identifier: {
+      type: DataTypes.VIRTUAL,
+      get: function() {
+        return this.full_name + ' ' + this.dates;
+      }
     }
   }, {
     classMethods: {

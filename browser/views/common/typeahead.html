@@ -1,11 +1,5 @@
 <div>
   <span
-    style="display:block;"
-    class="topic-title"
-    ng-bind-html="match.model.full_name | uibTypeaheadHighlight:query">
+    ng-bind-html="match.model.identifier | uibTypeaheadHighlight:query">
   </span>
-  <span
-    class="topic-description"
-    ng-if="match.model.description"
-    ng-bind-html="match.model.dates | uibTypeaheadHighlight:query"></span>
 </div>

@@ -10,6 +10,11 @@
     </div>
   </div>
 
+  <!-- Seperator -->
+  <div class="row">
+    <hr>
+  </div>
+
   <!-- Basic info -->
   <div class="row">
     <div class="col-md-12">
@@ -19,23 +24,19 @@
     </div>
   </div>
 
+  <!-- Seperator -->
+  <div class="row">
+    <hr>
+  </div>
+
   <!-- Parents -->
   <div class="row">
-    <div class="col-md-11 col-md-offset-1">
-
+    <div class="col-md-1">
       <h4 class="header">Parents</h4>
-      <ul>
-        <li ng-repeat="person in person.Parents">
+    </div>
+    <div class="col-md-11">
 
-          <div class="people-list-header">
-            <person-list-header person="person"></person-list-header>
-          </div>
-          <div class="">
-            <person-list-collapse person="person"></person-list-collapse>
-          </div>
-
-        </li>
-      </ul>
+      <people-list people="person.Parents" paginate="false"></people-list>
 
       <div class="form-inline">
         <div class="form-group">
@@ -54,27 +55,22 @@
         </button>
       </div>
 
-
     </div>
+  </div>
+
+  <!-- Seperator -->
+  <div class="row">
+    <hr>
   </div>
 
   <!-- Children -->
   <div class="row">
-    <div class="col-md-11 col-md-offset-1">
-
+    <div class="col-md-1">
       <h4 class="header">Children</h4>
-      <ul>
-        <li ng-repeat="person in person.Children">
+    </div>
+    <div class="col-md-11">
 
-          <div class="people-list-header">
-            <person-list-header person="person"></person-list-header>
-          </div>
-          <div class="">
-            <person-list-collapse person="person"></person-list-collapse>
-          </div>
-
-        </li>
-      </ul>
+      <people-list people="person.Children" paginate="false"></people-list>
 
       <div class="form-inline">
         <div class="form-group">

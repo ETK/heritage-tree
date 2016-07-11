@@ -1,5 +1,4 @@
-<span class="person-name">{{ person.full_name }}</span>
-{{ person.dates }}
+<span class="person-name"><a ui-sref="person({ personId: person.id })">{{ person.identifier }}</a></span>
 <span class="person-location">
   <span ng-if="person.settle_location"> - {{ person.settle_location }}</span>
   <span ng-if="!person.settle_location && birth_location"> - {{ person.birth_location }}</span>

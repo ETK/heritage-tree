@@ -13,23 +13,8 @@
   <div class="row">
     <div class="col-md-12">
 
-      <dir-pagination-controls template-url="views/common/pagination.html" pagination-id="people"></dir-pagination-controls>
+      <people-list people="people" paginate="true" num-per-page="10" pagination-id="'people-pages'"></people-list>
 
-      <ul>
-        <li dir-paginate="person in people | filter:filterText | itemsPerPage: 15" pagination-id="people">
-
-          <div class="people-list-header">
-            <person-list-header person="person"></person-list-header>
-          </div>
-          <div class="">
-            <person-list-collapse person="person"></person-list-collapse>
-          </div>
-
-        </li>
-      </ul>
-
-      <dir-pagination-controls template-url="views/common/pagination.html" pagination-id="people"></dir-pagination-controls>
-      
     </div>
   </div>
 </div>

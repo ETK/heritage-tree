@@ -1,0 +1,25 @@
+<dir-pagination-controls ng-if="paginate" template-url="views/common/pagination.html" pagination-id="paginationId"></dir-pagination-controls>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" dir-paginate="person in people | filter:filterText | itemsPerPage: numPerPage" pagination-id="paginationId">
+
+    <div class="panel-heading person-list-panel"
+         id="#person-heading-{{ person.id }}"
+         role="tab"
+         data-toggle="collapse"
+         data-target="#person-collapse-{{ person.id }}"
+         aria-expanded="false">
+      <person-list-header person="person"></person-list-header>
+    </div>
+    <div class="panel-collapse collapse"
+         id="person-collapse-{{ person.id }}"
+         role="tabpanel">
+      <div class="panel-body">
+        <person-list-collapse person="person"></person-list-collapse>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<dir-pagination-controls ng-if="paginate" template-url="views/common/pagination.html" pagination-id="paginationId"></dir-pagination-controls>

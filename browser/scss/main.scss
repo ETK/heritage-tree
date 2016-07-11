@@ -24,14 +24,12 @@ body {
 
 #main {
   margin-top: 70px;
-}
-
-h1, h2, h3, h4 {
-  font-weight: 300!important;
+  margin-bottom: 100px;
 }
 
 .header {
   font-weight: 300;
 }
 
+@import 'bootstrap-customize';
 @import 'people';

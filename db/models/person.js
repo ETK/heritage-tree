@@ -17,7 +17,26 @@ module.exports = function(sequelize, DataTypes) {
     death_year: DataTypes.INTEGER,
     death_month: DataTypes.INTEGER,
     death_day: DataTypes.INTEGER,
-    notes: DataTypes.TEXT
+    notes: DataTypes.TEXT,
+    full_name: {
+      type: DataTypes.VIRTUAL,
+      get: function() {
+        var name = this.last_name + ', ' + this.first_name;
+        if(this.middle_name) name += ' ' + this.middle_name;
+        return name;
+      }
+    },
+    dates: {
+      type: DataTypes.VIRTUAL,
+      get: function() {
+        var dates = '(';
+        if(this.birth_year) {
+          dates += this.birth_year;
+          if(this.death_year) dates += ' - ' + this.death_year;
+        } else dates += '--';
+        return dates += ')';
+      }
+    }
   }, {
     classMethods: {
       associate: function(models) {
@@ -25,15 +44,13 @@ module.exports = function(sequelize, DataTypes) {
         Person.belongsToMany(models.Person, {
           as: 'Parents',
           through: 'Relations',
-          foreignKey: 'person_id',
-          // targetKey: 'person_id'
+          foreignKey: 'person_id'
         });
         // person => children association
         Person.belongsToMany(models.Person, {
           as: 'Children',
           through: 'Relations',
-          foreignKey: 'parent_id',
-          targetKey: 'parent_id'
+          foreignKey: 'parent_id'
         });
       }
     }

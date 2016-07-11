@@ -2,7 +2,8 @@ app.directive('personPopout', function ($rootScope, PeopleFactory) {
   return {
     restrict: 'E',
     scope: {
-      person: '='
+      person: '=',
+      people: '='
     },
     templateUrl: 'views/people/person-popout.html',
     link: function (scope) {

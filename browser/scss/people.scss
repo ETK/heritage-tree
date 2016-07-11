@@ -3,6 +3,20 @@ person-popout {
     padding: 10px;
   }
   .form-category {
+    font-size: 18px;
     font-weight: 300;
+  }
+  .row {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+}
+
+.people-list-header {
+  .person-name {
+    font-weight: 500;
+  }
+  .person-location {
+    font-style: italic;
   }
 }

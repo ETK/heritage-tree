@@ -12,17 +12,19 @@
 
   <dir-pagination-controls template-url="views/common/pagination.html" pagination-id="people"></dir-pagination-controls>
 
-  <ul class="collapsible popout" data-collapsible="accordion">
-    <li dir-paginate="person in people | filter:filterText | itemsPerPage: 25" pagination-id="people">
+  <ul class="collapsible" data-collapsible="expandable">
+    <li dir-paginate="person in people | filter:filterText | itemsPerPage: 15" pagination-id="people">
 
-      <div class="collapsible-header">
-        <span class="fa fa-male" ng-if=" person.gender == 'M' "></span>
-        <span class="fa fa-female" ng-if=" person.gender == 'F' "></span>
-        {{ person.last_name }}, {{ person.first_name }} {{ person.middle_name }}
-        ({{ person.birth_year }} - {{ person.death_year }}) - Born in {{ person.birth_place }}
+      <div class="collapsible-header people-list-header">
+        <span class="person-name">{{ person.full_name }}</span>
+        {{ person.dates }}
+        <span class="person-location">
+          <span ng-if="person.settle_location"> - {{ person.settle_location }}</span>
+          <span ng-if="!person.settle_location && birth_location"> - {{ person.birth_location }}</span>
+        </span>
       </div>
       <div class="collapsible-body">
-        <person-popout person="person"></person-popout>
+        <person-popout person="person" people="people"></person-popout>
       </div>
 
     </li>

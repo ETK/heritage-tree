@@ -23,6 +23,10 @@ nav {
   @extend .green, .lighten-1;
 }
 
+.collapsible-body {
+  @extend .grey, .lighten-4;
+}
+
 $roboto-font-path: "/materialize-css/fonts/roboto/";
 
 @import 'materialize/materialize';

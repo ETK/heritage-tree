@@ -58,6 +58,12 @@ module.exports = function(sequelize, DataTypes) {
           through: 'Relations',
           foreignKey: 'parent_id'
         });
+        // person => spouse association
+        Person.belongsToMany(models.Person, {
+          as: 'Spouses',
+          through: 'Spouses',
+          foreignKey: 'person_id'
+        });
       }
     }
   });

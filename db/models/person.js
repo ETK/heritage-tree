@@ -28,6 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       get: function() {
         var name = this.last_name + ', ' + this.first_name;
         if(this.middle_name) name += ' ' + this.middle_name;
+        if(this.nick_name) name += ' "' + this.nick_name + '"';
         return name;
       }
     },
@@ -38,6 +39,8 @@ module.exports = function(sequelize, DataTypes) {
         if(this.birth_year) {
           dates += this.birth_year;
           if(this.death_year) dates += ' - ' + this.death_year;
+        } else if(this.death_year) {
+          if(this.death_year) dates += '? - ' + this.death_year;
         } else dates += '--';
         return dates += ')';
       }
@@ -45,9 +48,9 @@ module.exports = function(sequelize, DataTypes) {
     primary_location: {
       type: DataTypes.VIRTUAL,
       get: function() {
-        if(this.settle_location) return this.settle_location;
-        if(this.death_location) return this.death_location;
-        if(this.birth_location) return this.birth_location;
+        if(this.settle_location) return 's. ' + this.settle_location;
+        if(this.death_location) return 'd. ' + this.death_location;
+        if(this.birth_location) return 'b. ' + this.birth_location;
         return null;
       }
     },

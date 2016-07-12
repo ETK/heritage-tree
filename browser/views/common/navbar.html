@@ -26,7 +26,7 @@
                    style="width:100%"
                    placeholder="Find a person"
                    ng-model="searchString"
-                   uib-typeahead="person as person.identifier for person in people | filter:{full_name:$viewValue} | limitTo:5"
+                   uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
                    typeahead-template-url="/views/common/typeahead-search.html"
                    typeahead-focus-first="false"
                    autofocus>

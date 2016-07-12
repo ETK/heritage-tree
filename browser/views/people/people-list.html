@@ -12,8 +12,7 @@
       <a ui-sref="person({ personId: person.id })">{{ person.identifier }}</a>
     </span>
     <span class="person-location">
-      <span ng-if="person.settle_location"> | {{ person.settle_location }}</span>
-      <span ng-if="!person.settle_location && birth_location"> | {{ person.birth_location }}</span>
+      <span ng-if="person.primary_location"> | {{ person.primary_location }}</span>
     </span>
     <span class="">
       <button type="button" class="btn btn-xs btn-default"

@@ -11,6 +11,13 @@ app.directive('forceChart', function(){
       var width = window.innerWidth,
           height = window.innerHeight;
 
+					console.log($scope.data)
+
+			var lineColors = {
+				'parent-child': '#000000',
+				'spouse': '#FF0000'
+			}
+
       var svg = d3.select("svg")
           .attr("width", width)
           .attr("height", height);
@@ -27,6 +34,7 @@ app.directive('forceChart', function(){
           .selectAll("line")
           .data($scope.data.links)
           .enter().append("line")
+						.attr("stroke", function(d) { return lineColors[d.type]; })
             .attr("stroke-width", 1);
 
       var node = svg.append("g")

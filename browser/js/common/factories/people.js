@@ -40,7 +40,6 @@ app.factory('PeopleFactory', function($http) {
     },
 
     removeSpouse: function(person, relative) {
-      console.log('in remove spouse')
       return $http.delete(baseUrl + person.id + '/spouses/' + relative.id)
       .then(res => res.status);
     }

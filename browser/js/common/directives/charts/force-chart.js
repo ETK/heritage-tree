@@ -43,20 +43,15 @@ app.directive('forceChart', function(){
               .on('dblclick', function(d){ console.log(d.id) })
               // .on('click', connectedNodes); // highlight connected nodes
 
-        // Tutorial
-        node.append("title")
-            .text(function(d) { return d.id; });
-
-        // Grok
-        console.log(node);
-        node.enter().append("text")
-				   .attr("text-anchor", "middle")
-				   .attr("x", function(d) { return d.x })
-				   .attr("y", function(d) { return d.y })
-				   .text(function(d) { return d.id });
-
-        // console.log(node);
-        // console.log(svg.selectAll("g.node"));
+			var label = svg.append("g")
+            .attr("class", "labels")
+          .selectAll("text")
+          .data(graph.nodes)
+          .enter().append("text")
+						.attr("text-anchor", "middle")
+					 .attr("x", function(d) { return d.x })
+					 .attr("y", function(d) { return d.y })
+					 .text(function(d) { return d.id });
 
         simulation
             .nodes(graph.nodes)

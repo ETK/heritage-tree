@@ -6,12 +6,10 @@ app.directive('forceChart', function(){
 		scope: {
 			data: '='
 		},
-		controller: function($scope) {
+		controller: function($scope, $state) {
 
       var width = window.innerWidth,
           height = window.innerHeight;
-
-					console.log($scope.data)
 
 			var lineColors = {
 				'parent-child': '#000000',
@@ -47,7 +45,7 @@ app.directive('forceChart', function(){
                 .on("start", dragstarted)
                 .on("drag", dragged)
                 .on("end", dragended))
-            .on('dblclick', function(d){ console.log(d.name) })
+            .on('dblclick', function(d){ $state.go('person', { personId: d.id }) });
             // .on('click', connectedNodes); // highlight connected nodes
 
 			var label = svg.append("g")

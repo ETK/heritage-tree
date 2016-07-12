@@ -47,7 +47,7 @@
              class="form-control"
              style="width: 300px"
              ng-model="parent"
-             uib-typeahead="person as person.identifier for person in people | filter:$viewValue | limitTo:5"
+             uib-typeahead="person as person.identifier for person in people | filter:{full_name:$viewValue} | limitTo:5"
              typeahead-template-url="/views/common/typeahead.html"
              typeahead-focus-first="false">
        </div>
@@ -82,7 +82,7 @@
              class="form-control"
              style="width: 300px"
              ng-model="spouse"
-             uib-typeahead="person as person.identifier for person in people | filter:$viewValue | limitTo:5"
+             uib-typeahead="person as person.identifier for person in people | filter:{full_name:$viewValue} | limitTo:5"
              typeahead-template-url="/views/common/typeahead.html"
              typeahead-focus-first="false">
        </div>
@@ -117,7 +117,7 @@
              class="form-control"
              style="width: 300px"
              ng-model="child"
-             uib-typeahead="person as person.identifier for person in people | filter:$viewValue | limitTo:5"
+             uib-typeahead="person as person.identifier for person in people | filter:{full_name:$viewValue} | limitTo:5"
              typeahead-template-url="/views/common/typeahead.html"
              typeahead-focus-first="false">
          </div>

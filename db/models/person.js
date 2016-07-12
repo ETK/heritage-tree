@@ -37,6 +37,15 @@ module.exports = function(sequelize, DataTypes) {
         return dates += ')';
       }
     },
+    primary_location: {
+      type: DataTypes.VIRTUAL,
+      get: function() {
+        if(this.settle_location) return this.settle_location;
+        if(this.death_location) return this.death_location;
+        if(this.birth_location) return this.birth_location;
+        return null;
+      }
+    },
     identifier: {
       type: DataTypes.VIRTUAL,
       get: function() {

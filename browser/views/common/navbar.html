@@ -14,6 +14,27 @@
     <!-- Navigation -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
+        <!-- Search -->
+        <li class="dropdown" id="search-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
+          <ul class="dropdown-menu">
+            <form class="form-inline form-group-lg">
+              <div class="form-group" style="width:100%">
+                <input
+                   type="text"
+                   class="form-control"
+                   style="width:100%"
+                   placeholder="Find a person"
+                   ng-model="searchString"
+                   uib-typeahead="person as person.identifier for person in people | filter:{full_name:$viewValue} | limitTo:5"
+                   typeahead-template-url="/views/common/typeahead-search.html"
+                   typeahead-focus-first="false"
+                   autofocus>
+               </div>
+            </form>
+          </ul>
+        </li>
+        <!-- Links -->
         <li ng-repeat="item in items">
           <a ui-sref-active="active" ui-sref="{{ item.state }}">
             {{ item.label }}

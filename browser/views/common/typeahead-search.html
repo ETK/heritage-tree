@@ -1,0 +1,16 @@
+<div class="search-typeahead-result" ui-sref="person({ personId : match.model.id })">
+  <span
+    style="display:block;"
+    class="person-name"
+    ng-bind-html="match.model.full_name | uibTypeaheadHighlight:query">
+  </span>
+  <span
+    class="person-description"
+    ng-bind-html="match.model.dates | uibTypeaheadHighlight:query">
+  </span>
+  <span
+    class="person-description"
+    ng-if="match.model.primary_location"
+    ng-bind-html="match.model.primary_location | uibTypeaheadHighlight:query">
+  </span>
+</div>

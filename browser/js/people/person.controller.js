@@ -22,4 +22,12 @@ app.controller('PersonController', function ($scope, $state, people, person, Peo
     });
   }
 
+  $scope.addSpouse = function(spouse) {
+    return PeopleFactory.addSpouse($scope.person, spouse)
+    .then( function(updatedPerson) {
+      $scope.person = updatedPerson;
+      $scope.spouse = '';
+    });
+  }
+
 });

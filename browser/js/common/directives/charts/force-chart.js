@@ -7,7 +7,6 @@ app.directive('forceChart', function(){
 			data: '='
 		},
 		controller: function($scope) {
-			console.log($scope.data)
 
       var width = window.innerWidth,
           height = window.innerHeight;

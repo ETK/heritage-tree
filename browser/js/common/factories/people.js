@@ -29,8 +29,19 @@ app.factory('PeopleFactory', function($http) {
       .then(res => res.data);
     },
 
+    addSpouse: function(person, spouse) {
+      return $http.post(baseUrl + person.id + '/spouses', spouse)
+      .then(res => res.data);
+    },
+
     removeRelation: function(person, relative) {
       return $http.delete(baseUrl + person.id + '/relationships/' + relative.id)
+      .then(res => res.status);
+    },
+
+    removeSpouse: function(person, relative) {
+      console.log('in remove spouse')
+      return $http.delete(baseUrl + person.id + '/spouses/' + relative.id)
       .then(res => res.status);
     }
 

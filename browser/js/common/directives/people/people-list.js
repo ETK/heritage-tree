@@ -4,18 +4,26 @@ app.directive('peopleList', function (PeopleFactory) {
     scope: {
       people: '=',
       person: '=?', // used for single person page
+      type: '=?', // people list type, for special cases
       paginate: '=?',
       numPerPage: '=?',
       paginationId: '=?'
     },
     templateUrl: 'views/people/people-list.html',
     link: function(scope) {
-      // set default pagination if not specified
+      // set defaults if not specified
+      scope.type = scope.type || 'parent-child';
       scope.numPerPage = scope.numPerPage || 10000;
       scope.paginationId = scope.paginationId || 'defaultPagination';
 
       scope.removeRelation = function(relative) {
-        return PeopleFactory.removeRelation(scope.person, relative)
+        var fn;
+        if(scope.type === 'spouses') {
+          fn = PeopleFactory.removeSpouse;
+        } else {
+          fn = PeopleFactory.removeRelation;
+        }
+        return fn(scope.person, relative)
         .then(function(resStatus) {
           if(resStatus === 204) removePersonFromPeople(relative);
           else console.log('Relationship not found; no action taken.')

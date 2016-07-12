@@ -78,6 +78,7 @@ router.post('/:personId/children', function(req, res, next) {
 
 // add spouse
 router.post('/:personId/spouses', function(req, res, next) {
+  console.log(req.body)
   Promise.all([
     req.person.addSpouse(req.body.id), // add spouse (B) to selected person (A)
     People.findById(req.body.id) // add selected person (A) as a spouse to person (B)

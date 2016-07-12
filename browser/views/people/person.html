@@ -64,6 +64,41 @@
     <hr>
   </div>
 
+  <!-- Spouses -->
+  <div class="row">
+    <div class="col-md-1">
+      <h4 class="header">Spouses</h4>
+    </div>
+    <div class="col-md-11">
+
+      <people-list people="person.Spouses" person="person" type="'spouses'" paginate="false"></people-list>
+
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="spouse_name">Spouse Name</label>
+          <input
+             type="text"
+             id="spouse_name"
+             class="form-control"
+             style="width: 300px"
+             ng-model="spouse"
+             uib-typeahead="person as person.identifier for person in people | filter:$viewValue | limitTo:5"
+             typeahead-template-url="/views/common/typeahead.html"
+             typeahead-focus-first="false">
+       </div>
+        <button class="btn btn-default" ng-click="addSpouse(spouse)">
+          <span class="glyphicon glyphicon-plus"></span> add
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Seperator -->
+  <div class="row">
+    <hr>
+  </div>
+
   <!-- Children -->
   <div class="row">
     <div class="col-md-1">

@@ -62,7 +62,12 @@ module.exports = function(sequelize, DataTypes) {
         Person.belongsToMany(models.Person, {
           as: 'Spouses',
           through: 'Spouses',
-          foreignKey: 'person_id'
+          foreignKey: 'person_id',
+        });
+        Person.belongsToMany(models.Person, {
+          as: 'Spouses',
+          through: 'Spouses',
+          foreignKey: 'spouse_id',
         });
       }
     }

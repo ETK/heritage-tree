@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-md-12">
       <h2 class="header">
-        {{ person.full_name }}
+        {{ person.identifier }}
       </h2>
     </div>
   </div>
@@ -45,8 +45,9 @@
              type="text"
              id="parent_name"
              class="form-control"
+             style="width: 300px"
              ng-model="parent"
-             uib-typeahead="person as person.full_name for person in people | filter:$viewValue | limitTo:5"
+             uib-typeahead="person as person.identifier for person in people | filter:$viewValue | limitTo:5"
              typeahead-template-url="/views/common/typeahead.html"
              typeahead-focus-first="false">
        </div>
@@ -79,8 +80,9 @@
              type="text"
              id="child_name"
              class="form-control"
+             style="width: 300px"
              ng-model="child"
-             uib-typeahead="person as person.full_name for person in people | filter:$viewValue | limitTo:5"
+             uib-typeahead="person as person.identifier for person in people | filter:$viewValue | limitTo:5"
              typeahead-template-url="/views/common/typeahead.html"
              typeahead-focus-first="false">
          </div>

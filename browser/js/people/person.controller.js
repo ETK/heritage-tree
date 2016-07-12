@@ -10,6 +10,7 @@ app.controller('PersonController', function ($scope, $state, people, person, Peo
     return PeopleFactory.addParent($scope.person, parent)
     .then( function(updatedPerson) {
       $scope.person = updatedPerson;
+      $scope.parent = '';
     });
   }
 
@@ -17,6 +18,7 @@ app.controller('PersonController', function ($scope, $state, people, person, Peo
     return PeopleFactory.addChild($scope.person, child)
     .then( function(updatedPerson) {
       $scope.person = updatedPerson;
+      $scope.child = '';
     });
   }
 

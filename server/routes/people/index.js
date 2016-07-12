@@ -43,6 +43,13 @@ router.get('/', function(req, res, next) {
   .catch(next);
 });
 
+// create a person
+router.post('/', function(req, res, next) {
+  People.create(req.body)
+  .then(person => res.send(person))
+  .catch(next);
+});
+
 // one person
 router.get('/:personId', function(req, res, next) {
   People.findById(req.params.personId, includeRelations)
@@ -78,7 +85,6 @@ router.post('/:personId/children', function(req, res, next) {
 
 // add spouse
 router.post('/:personId/spouses', function(req, res, next) {
-  console.log(req.body)
   Promise.all([
     req.person.addSpouse(req.body.id), // add spouse (B) to selected person (A)
     People.findById(req.body.id) // add selected person (A) as a spouse to person (B)

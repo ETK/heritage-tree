@@ -14,6 +14,27 @@ app.factory('PeopleFactory', function($http) {
       .then(res => res.data);
     },
 
+    // Create a person - name format is one of:
+    // -- [first] [middle] [last] [suffix]
+    // -- [first] [middle] [last]
+    // -- [first] [last]
+    createPerson: function(nameStr) {
+      var nameArr = nameStr.split(' '),
+          nameObj = {};
+      nameObj.first_name = nameArr[0];
+      if(nameArr.length === 4) {
+        nameObj.suffix = nameArr[3];
+      }
+      if(nameArr.length >= 3) {
+        nameObj.middle_name = nameArr[1];
+        nameObj.last_name = nameArr[2];
+      } else {
+        nameObj.last_name = nameArr[1];
+      }
+      return $http.post(baseUrl, nameObj)
+      .then(res => res.data);
+    },
+
     updatePerson: function(id, updates) {
       return $http.put(baseUrl + id, updates)
       .then(res => res.data);

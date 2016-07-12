@@ -1,1 +1,22 @@
+svg {
+  overflow: hidden;
+}
+
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 0;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+
+.svg-content-responsive {
+    display: inline-block;
+    position: relative;
+    top: 10px;
+    left: 0;
+}
+
 @import 'force-chart';

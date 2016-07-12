@@ -1,4 +1,9 @@
 'use strict';
+
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
 module.exports = function(sequelize, DataTypes) {
   var Person = sequelize.define('Person', {
     last_name: DataTypes.STRING,
@@ -78,6 +83,17 @@ module.exports = function(sequelize, DataTypes) {
           through: 'Spouses',
           foreignKey: 'spouse_id',
         });
+      }
+    },
+    hooks: {
+      beforeCreate: function(person) {
+        person.first_name = person.first_name.toProperCase();
+        if(person.middle_name) person.middle_name = person.middle_name.toProperCase();
+        person.last_name = person.last_name.toUpperCase();
+        if(person.suffix) {
+          if(person.suffix[0].toLowerCase === 'i') person.suffix = person.suffix.toUpperCase(); // I/II/III, etc
+          else person.suffix = person.suffix.toProperCase();
+        }
       }
     }
   });

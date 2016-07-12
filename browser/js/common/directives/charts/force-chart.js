@@ -14,7 +14,13 @@ app.directive('forceChart', function(){
 			var lineColors = {
 				'parent-child': '#000000',
 				'spouse': '#FF0000'
-			}
+			};
+
+			var circleColors = {
+				'LINCOLN': '#0000FF',
+				'HUBBARD': '#FF0000',
+				'PETERS': '#00FF00'
+			};
 
       var svg = d3.select("svg")
           .attr("width", width)
@@ -40,7 +46,8 @@ app.directive('forceChart', function(){
           .selectAll("circle")
           .data($scope.data.nodes)
           .enter().append("circle")
-            .attr("r", 5)
+            .attr("r", 10)
+						.style("fill", function(d) { return circleColors[d.last_name] || '#000000'; })
             .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
@@ -58,6 +65,9 @@ app.directive('forceChart', function(){
 					.attr("y", function(d) { return d.y })
 					.text(function(d) { return d.name });
 
+
+
+			// Simulation
       simulation
           .nodes($scope.data.nodes)
           .on("tick", ticked);
@@ -65,6 +75,29 @@ app.directive('forceChart', function(){
       simulation.force("link")
           .links($scope.data.links);
 
+
+			// Allow for zoom + pan
+			svg.call(d3.zoom()
+				.scaleExtent([1 / 2, 4])
+				.on("zoom", zoomed));
+
+			function zoomed() {
+				svg.selectAll("g").attr("transform", d3.event.transform);
+			}
+
+			// Handle window resize
+			d3.select(window).on("resize", resize);
+
+			function resize() {
+		    width = window.innerWidth, height = window.innerHeight;
+		    svg.attr("width", width).attr("height", height);
+		    simulation
+					.stop()
+					.force("center", d3.forceCenter(width / 2, height / 2))
+					.restart();
+		  }
+
+			// Helper functions
       function ticked() {
         link
             .attr("x1", function(d) { return d.source.x; })

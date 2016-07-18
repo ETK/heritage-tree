@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
     controller: 'PeopleController',
     resolve: {
       people: function(PeopleFactory) {
-        return PeopleFactory.fetchAll();
+        return PeopleFactory.fetchAll({ includeRelations: false });
       }
     }
   });

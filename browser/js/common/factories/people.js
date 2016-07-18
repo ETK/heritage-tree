@@ -4,8 +4,12 @@ app.factory('PeopleFactory', function($http) {
 
   return {
 
-    fetchAll: function() {
-      return $http.get(baseUrl)
+    fetchAll: function(options) {
+      return $http({
+        method: 'GET',
+        url: baseUrl,
+        params: options
+      })
       .then(res => res.data);
     },
 

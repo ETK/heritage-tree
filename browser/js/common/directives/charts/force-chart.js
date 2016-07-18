@@ -46,7 +46,7 @@ app.directive('forceChart', function(){
           .selectAll("circle")
           .data($scope.data.nodes)
           .enter().append("circle")
-            .attr("r", 8)
+            .attr("r", 10)
 						.style("fill", function(d) { return circleColors[d.last_name] || '#000000'; })
             .call(d3.drag()
                 .on("start", dragstarted)

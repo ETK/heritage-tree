@@ -1,0 +1,2 @@
+- typeahead, search only needs people, not relations
+- pagination redirects to front page

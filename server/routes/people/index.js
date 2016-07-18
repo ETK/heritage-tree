@@ -7,7 +7,7 @@ const Spouses = db.model('Spouses');
 
 module.exports = router;
 
-const includeRelations = { include: [{
+const allRelations = [{
   model: People,
   as: 'Parents'
 }, {
@@ -16,7 +16,7 @@ const includeRelations = { include: [{
 }, {
   model: People,
   as: 'Spouses'
-}] };
+}];
 
 router.param('personId', function(req, res, next, id) {
   People.findById(id)
@@ -38,7 +38,11 @@ router.param('spouseId', function(req, res, next, id) {
 
 // all people
 router.get('/', function(req, res, next) {
-  People.findAll(includeRelations)
+  var options = { include: allRelations };
+  if(req.query && req.query.includeRelations && req.query.includeRelations === 'false') {
+    options.include = null;
+  }
+  People.findAll(options)
   .then(people => res.send(people))
   .catch(next);
 });
@@ -52,7 +56,7 @@ router.post('/', function(req, res, next) {
 
 // one person
 router.get('/:personId', function(req, res, next) {
-  People.findById(req.params.personId, includeRelations)
+  People.findById(req.params.personId, { include: allRelations })
   .then(person => res.send(person))
   .catch(next);
 });
@@ -67,7 +71,7 @@ router.put('/:personId', function(req, res, next) {
 router.post('/:personId/parents', function(req, res, next) {
   req.person.addParent(req.body.id)
   .then( function() {
-    return People.findById(req.person.id, includeRelations);
+    return People.findById(req.person.id, { include: allRelations });
   })
   .then(person => res.send(person))
   .catch(next);
@@ -77,7 +81,7 @@ router.post('/:personId/parents', function(req, res, next) {
 router.post('/:personId/children', function(req, res, next) {
   req.person.addChild(req.body.id)
   .then( function() {
-    return People.findById(req.person.id, includeRelations);
+    return People.findById(req.person.id, { include: allRelations });
   })
   .then(person => res.send(person))
   .catch(next);
@@ -93,7 +97,7 @@ router.post('/:personId/spouses', function(req, res, next) {
     })
   ])
   .then( function() {
-    return People.findById(req.person.id, includeRelations);
+    return People.findById(req.person.id, { include: allRelations });
   })
   .then(person => res.send(person))
   .catch(next);
@@ -112,7 +116,6 @@ router.put('/:personId/spouses/:spouseId', function(req, res,next) {
     ]
   } })
   .spread(function(numUpdatedRows, updatedRelationships) {
-    console.log(updatedRelationships);
     res.status(200).send(updatedRelationships);
   })
   .catch(next);

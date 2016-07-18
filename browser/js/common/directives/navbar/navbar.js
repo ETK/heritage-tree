@@ -6,7 +6,7 @@ app.directive('navbar', function (PeopleFactory, $state) {
     templateUrl: 'views/common/navbar.html',
     link: function (scope) {
 
-      PeopleFactory.fetchAll()
+      PeopleFactory.fetchAll({ includeRelations: false })
       .then(people => scope.people = people);
 
       scope.items = [

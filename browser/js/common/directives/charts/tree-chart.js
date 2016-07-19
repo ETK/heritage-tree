@@ -7,7 +7,7 @@ app.directive('treeChart', function(){
 			data: '='
 		},
 		controller: function($scope, $state) {
-
+			console.log($scope.data)
     }
   }
 });

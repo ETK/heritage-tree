@@ -10,7 +10,7 @@ app.config(function ($stateProvider) {
           PeopleFactory.fetchRelations()
         ])
         .then( function(data) {
-          return ChartFactory.transformPeopleForTree(data[0], data[1]);
+          return ChartFactory.transformPeopleForTree(data[0], data[1].relations, data[1].spouses);
         });
       }
     },

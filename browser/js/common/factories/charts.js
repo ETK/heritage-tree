@@ -18,6 +18,11 @@ app.factory('ChartFactory', function() {
       });
 
       return { nodes: nodes, links: links };
+    },
+
+    transformPeopleForTree: function(people, relations) {
+      console.log(people)
+      console.log(relations)
     }
 
   }

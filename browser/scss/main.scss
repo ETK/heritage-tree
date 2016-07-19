@@ -23,7 +23,7 @@ body {
 }
 
 #main {
-  padding-top: 70px;
+  padding-top: 50px;
 }
 
 .header {
@@ -35,3 +35,5 @@ body {
 @import 'people';
 @import 'typeahead';
 @import 'charts/index';
+@import 'fonts/roboto';
+@import 'fonts/font-awesome';

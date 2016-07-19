@@ -18,6 +18,8 @@ const allRelations = [{
   as: 'Spouses'
 }];
 
+router.use('/relations', require('./relations'));
+
 router.param('personId', function(req, res, next, id) {
   People.findById(id)
   .then(function(person) {

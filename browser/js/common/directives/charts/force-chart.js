@@ -19,7 +19,9 @@ app.directive('forceChart', function(){
 			var circleColors = {
 				'LINCOLN': '#0000FF',
 				'HUBBARD': '#FF0000',
-				'PETERS': '#00FF00'
+				'PETERS': '#00FF00',
+				'NEWCOMB': '#FFFF00',
+				'SZYMANOWSKI': '#00FFFF'
 			};
 
       var svg = d3.select("svg")

@@ -18,6 +18,11 @@ app.factory('PeopleFactory', function($http) {
       .then(res => res.data);
     },
 
+    fetchRelations: function() {
+      return $http.get(baseUrl + 'relations')
+      .then(res => res.data);
+    },
+
     // Create a person - name format is one of:
     // -- [first] [middle] [last] [suffix]
     // -- [first] [middle] [last]

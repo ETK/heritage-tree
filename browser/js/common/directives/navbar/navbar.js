@@ -12,6 +12,8 @@ app.directive('navbar', function (PeopleFactory, $state) {
       scope.items = [
         { label: 'Home', state: 'home' },
         { label: 'People', state: 'people' },
+        { label: 'Force Chart', state: 'forceChart' },
+        { label: 'Tree Chart', state: 'treeChart' },
       ];
 
     }

@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
         return PeopleFactory.fetchById($stateParams.personId);
       },
       people: function(PeopleFactory) {
-        return PeopleFactory.fetchAll();
+        return PeopleFactory.fetchAll({ includeRelations: false });
       }
     }
   });

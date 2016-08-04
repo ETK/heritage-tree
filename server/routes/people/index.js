@@ -2,7 +2,6 @@
 const router = require('express').Router();
 const db = require('../../../db/models').sequelize;
 const People = db.model('Person');
-const Relations = db.model('Relations');
 const Spouses = db.model('Spouses');
 
 module.exports = router;
@@ -66,7 +65,8 @@ router.get('/:personId', function(req, res, next) {
 // update a person
 router.put('/:personId', function(req, res, next) {
   req.person.update(req.body)
-  .then(updatedPerson => res.status(200).send(updatedPerson));
+  .then(updatedPerson => res.status(200).send(updatedPerson))
+  .catch(next);
 });
 
 // add parent

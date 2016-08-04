@@ -49,9 +49,9 @@ module.exports = function(sequelize, DataTypes) {
     primary_location: {
       type: DataTypes.VIRTUAL,
       get: function() {
+        if(this.birth_location) return 'b. ' + this.birth_location;
         if(this.settle_location) return 's. ' + this.settle_location;
         if(this.death_location) return 'd. ' + this.death_location;
-        if(this.birth_location) return 'b. ' + this.birth_location;
         return null;
       }
     },

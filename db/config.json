@@ -10,6 +10,8 @@
     "username": "mptujqdohchcnp",
     "password": "mOeNsb-Nfn3v5fvF9qMSH_99d9",
     "database": "ddene2o7op7nhj",
+    "host": "ec2-54-221-225-43.compute-1.amazonaws.com",
+    "port": "5432",
     "dialect": "postgresql"
   }
 }

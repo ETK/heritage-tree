@@ -6,8 +6,13 @@ const People = db.model('Person');
 
 module.exports = router;
 
+const includePeople = [{
+  model: People,
+  as: 'MilestonePeople'
+}]
+
 router.param('milestoneId', function(req, res, next, id) {
-  Milestone.findById(id, { include: [People] })
+  Milestone.findById(id, { include: includePeople })
   .then(function(person) {
     if (!person) res.status(404).end();
     req.milestone = milestone;
@@ -17,8 +22,7 @@ router.param('milestoneId', function(req, res, next, id) {
 
 // all milestones
 router.get('/', function(req, res, next) {
-  console.log('in route')
-  Milestone.findAll({})
+  Milestone.findAll({ include: includePeople })
   .then(milestones => res.send(milestones))
   .catch(next);
 });

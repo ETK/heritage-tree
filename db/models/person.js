@@ -87,6 +87,11 @@ module.exports = function(sequelize, DataTypes) {
           through: 'Spouses',
           foreignKey: 'spouse_id',
         });
+        Person.belongsToMany(models.Milestone, {
+          as: 'MilestonePeople',
+          through: 'MilestonesPeople',
+          foreignKey: 'person_id'
+        });
       }
     },
     hooks: {

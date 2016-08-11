@@ -9,8 +9,9 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Milestone.belongsToMany(models.Person, {
+          as: 'MilestonePeople',
           through: 'MilestonesPeople',
-          foreignKey: 'person_id'
+          foreignKey: 'milestone_id'
         });
       }
     }

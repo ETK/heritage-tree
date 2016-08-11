@@ -23,6 +23,9 @@ module.exports = {
           max: 2100
         }
       },
+      description: {
+        type: Sequelize.TEXT
+      },
       type: {
         type: Sequelize.STRING
       },

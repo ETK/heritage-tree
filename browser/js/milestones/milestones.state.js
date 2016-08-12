@@ -6,6 +6,9 @@ app.config(function ($stateProvider) {
     resolve: {
       milestones: function(MilestoneFactory) {
         return MilestoneFactory.fetchAll();
+      },
+      people: function(PeopleFactory) {
+        return PeopleFactory.fetchAll({ includeRelations: false });
       }
     }
   });

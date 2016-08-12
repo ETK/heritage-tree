@@ -7,8 +7,6 @@ const Spouses = db.model('Spouses');
 
 module.exports = router;
 
-router.use('/relations', require('./relations'));
-
 // all relations
 router.get('/', function(req, res, next) {
   Promise.all([

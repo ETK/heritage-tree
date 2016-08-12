@@ -13,8 +13,8 @@ const includePeople = [{
 
 router.param('milestoneId', function(req, res, next, id) {
   Milestone.findById(id, { include: includePeople })
-  .then(function(person) {
-    if (!person) res.status(404).end();
+  .then(function(milestone) {
+    if (!milestone) res.status(404).end();
     req.milestone = milestone;
     next();
   }).catch(next);
@@ -37,4 +37,14 @@ router.post('/', function(req, res, next) {
 // one milestone
 router.get('/:milestoneId', function(req, res, next) {
   res.send(req.milestone);
+});
+
+// associate a person to a milestone
+router.post('/:milestoneId/person', function(req, res, next) {
+  req.milestone.addMilestonePerson(req.body.id)
+  .then( function() {
+    return Milestone.findById(req.params.milestoneId, { include: includePeople });
+  })
+  .then(updatedMilestone => res.send(updatedMilestone))
+  .catch(next);
 });

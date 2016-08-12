@@ -1,11 +1,20 @@
-app.directive('milestone', function () {
+app.directive('milestone', function (MilestoneFactory) {
   return {
     restrict: 'E',
     scope: {
-      details: '='
+      details: '=',
+      people: '='
     },
     templateUrl: 'views/milestones/milestone.html',
-    // link: function (scope) {
-    // }
+    link: function (scope) {
+
+      scope.addPerson = function(person) {
+        return MilestoneFactory.addPerson(scope.details.id, person)
+        .then( function(updatedMilestone) {
+          scope.details = updatedMilestone;
+        });
+      }
+
+    }
   }
 });

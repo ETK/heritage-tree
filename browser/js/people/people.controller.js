@@ -1,5 +1,5 @@
-app.controller('MilestonesController', function ($scope, milestones) {
+app.controller('PeopleController', function ($scope, people) {
 
-  $scope.milestones = milestones;
+  $scope.people = people;
 
 });

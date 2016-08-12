@@ -1,3 +1,32 @@
-<pre>
-  {{ details | json}}
-</pre>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    {{ details.title }} ({{ details.year }})
+  </div>
+  <div class="panel-body">
+
+    {{ details.description }}
+
+    <!-- list of people associated with this milestone -->
+    <people-list people="details.MilestonePeople" paginate="false"></people-list>
+
+    <!-- add a person to this milestone -->
+    <div class="form-inline">
+      <div class="form-group">
+        <label for="person_name">Person Name</label>
+        <input
+           type="text"
+           id="person_name"
+           class="form-control"
+           style="width: 300px"
+           ng-model="person"
+           uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
+           typeahead-template-url="/views/common/typeahead.html"
+           typeahead-focus-first="false">
+     </div>
+      <button class="btn btn-default" ng-click="addPerson(person)">
+        <span class="glyphicon glyphicon-plus"></span> add to milestone
+      </button>
+
+    </div>
+  </div>
+</div>

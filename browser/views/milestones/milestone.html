@@ -7,7 +7,7 @@
     {{ details.description }}
 
     <!-- list of people associated with this milestone -->
-    <people-list people="details.MilestonePeople" paginate="false"></people-list>
+    <people-list people="details.MilestonePeople" type="'milestone'" remove-fn="removePerson" paginate="false"></people-list>
 
     <!-- add a person to this milestone -->
     <div class="form-inline">

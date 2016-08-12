@@ -1,4 +1,4 @@
-app.directive('peopleList', function (PeopleFactory) {
+app.directive('peopleList', function (PeopleFactory, MilestoneFactory) {
   return {
     restrict: 'E',
     scope: {
@@ -7,7 +7,8 @@ app.directive('peopleList', function (PeopleFactory) {
       type: '=?', // people list type, for special cases
       paginate: '=?',
       numPerPage: '=?',
-      paginationId: '=?'
+      paginationId: '=?',
+      removeFn: '='
     },
     templateUrl: 'views/people/people-list.html',
     link: function(scope) {
@@ -16,14 +17,23 @@ app.directive('peopleList', function (PeopleFactory) {
       scope.numPerPage = scope.numPerPage || 10000;
       scope.paginationId = scope.paginationId || 'defaultPagination';
 
+      // TODO: improve case handling
       scope.removeRelation = function(relative) {
-        var fn;
+        var fn,
+            baseId,
+            relationId = relative.id;
+
         if(scope.type === 'spouses') {
           fn = PeopleFactory.removeSpouse;
+          baseId = scope.person.id;
+        } else if(scope.type === 'milestone' ) {
+          fn = scope.removeFn;
+          baseId = relative.id; // milestone's remove function only requires the personId ("relative")
         } else {
           fn = PeopleFactory.removeRelation;
+          baseId = scope.person.id;
         }
-        return fn(scope.person, relative)
+        return fn(baseId, relationId)
         .then(function(resStatus) {
           if(resStatus === 204) removePersonFromPeople(relative);
           else console.log('Relationship not found; no action taken.')

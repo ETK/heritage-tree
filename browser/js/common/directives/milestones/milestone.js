@@ -15,6 +15,10 @@ app.directive('milestone', function (MilestoneFactory) {
         });
       }
 
+      scope.removePerson = function(personId) {
+        return MilestoneFactory.removePerson(scope.details.id, personId);
+      }
+
     }
   }
 });

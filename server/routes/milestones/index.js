@@ -48,3 +48,13 @@ router.post('/:milestoneId/person', function(req, res, next) {
   .then(updatedMilestone => res.send(updatedMilestone))
   .catch(next);
 });
+
+// delete milestone/person relationship
+router.delete('/:milestoneId/person/:personId', function(req, res, next) {
+  req.milestone.removeMilestonePerson(req.params.personId)
+  .then( function() {
+    return Milestone.findById(req.params.milestoneId, { include: includePeople });
+  })
+  .then(() => res.status(204).end())
+  .catch(next);
+});

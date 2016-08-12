@@ -64,13 +64,13 @@ app.factory('PeopleFactory', function($http) {
       .then(res => res.data);
     },
 
-    removeRelation: function(person, relative) {
-      return $http.delete(baseUrl + person.id + '/relationships/' + relative.id)
+    removeRelation: function(personId, relativeId) {
+      return $http.delete(baseUrl + personId + '/relationships/' + relativeId)
       .then(res => res.status);
     },
 
-    removeSpouse: function(person, relative) {
-      return $http.delete(baseUrl + person.id + '/spouses/' + relative.id)
+    removeSpouse: function(personId, spouseId) {
+      return $http.delete(baseUrl + personId + '/spouses/' + spouseId)
       .then(res => res.status);
     }
 

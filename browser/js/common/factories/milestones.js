@@ -14,6 +14,11 @@ app.factory('MilestoneFactory', function($http) {
       .then(res => res.data);
     },
 
+    createMilestone: function(newMilestone) {
+      return $http.post(baseUrl, newMilestone)
+      .then(res => res.data);
+    },
+
     addPerson: function(milestoneId, person) {
       return $http.post(baseUrl + milestoneId + '/person', person)
       .then(res => res.data);

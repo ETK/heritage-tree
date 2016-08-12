@@ -1,10 +1,11 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    {{ details.title }} ({{ details.year }})
+    <h3 class="panel-title"><strong>{{ details.title }}</strong> ({{ details.year }})</h3>
   </div>
   <div class="panel-body">
-
     {{ details.description }}
+
+    <hr />
 
     <!-- list of people associated with this milestone -->
     <people-list people="details.MilestonePeople" type="'milestone'" remove-fn="removePerson" paginate="false"></people-list>

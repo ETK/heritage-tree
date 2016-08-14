@@ -12,6 +12,7 @@ app.directive('milestone', function (MilestoneFactory) {
         return MilestoneFactory.addPerson(scope.details.id, person)
         .then( function(updatedMilestone) {
           scope.details = updatedMilestone;
+          scope.person = ''; // reset form
         });
       }
 

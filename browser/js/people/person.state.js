@@ -9,6 +9,9 @@ app.config(function ($stateProvider) {
       },
       people: function(PeopleFactory) {
         return PeopleFactory.fetchAll({ includeRelations: false });
+      },
+      milestones: function(MilestoneFactory, $stateParams) {
+        return MilestoneFactory.fetchByPersonId($stateParams.personId);
       }
     }
   });

@@ -1,6 +1,7 @@
-app.controller('PersonController', function ($scope, $state, people, person, PeopleFactory) {
+app.controller('PersonController', function ($scope, $state, people, person, PeopleFactory, milestones) {
   $scope.people = people;
   $scope.person = person;
+  $scope.person.milestones = milestones;
 
   $scope.update = function(updates) {
     return PeopleFactory.updatePerson(scope.person.id, updates);

@@ -14,8 +14,18 @@ app.factory('MilestoneFactory', function($http) {
       .then(res => res.data);
     },
 
+    fetchByPersonId: function(personId) {
+      return $http.get(baseUrl + 'person/' + personId)
+      .then(res => res.data);
+    },
+
     createMilestone: function(newMilestone) {
       return $http.post(baseUrl, newMilestone)
+      .then(res => res.data);
+    },
+
+    updateMilestone: function(id, updates) {
+      return $http.put(baseUrl + id, updates)
       .then(res => res.data);
     },
 

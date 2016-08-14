@@ -3,7 +3,7 @@ app.directive('milestone', function (MilestoneFactory) {
     restrict: 'E',
     scope: {
       details: '=',
-      people: '='
+      people: '=?' // optional - used for add person
     },
     templateUrl: 'views/milestones/milestone.html',
     link: function (scope) {
@@ -25,6 +25,10 @@ app.directive('milestone', function (MilestoneFactory) {
           if(resStatus === 204) window.location.reload();
           else console.log('Milestone not found; no action taken.');
         });
+      }
+
+      scope.update = function(updates) {
+        return MilestoneFactory.updateMilestone(scope.details.id, updates);
       }
 
     }

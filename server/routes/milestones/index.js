@@ -39,6 +39,13 @@ router.get('/:milestoneId', function(req, res) {
   res.send(req.milestone);
 });
 
+// update a milestone
+router.put('/:milestoneId', function(req, res, next) {
+  req.milestone.update(req.body)
+  .then(updatedMilestone => res.status(200).send(updatedMilestone))
+  .catch(next);
+});
+
 // delete a milestone
 router.delete('/:milestoneId', function(req, res, next) {
   req.milestone.destroy()
@@ -63,5 +70,18 @@ router.delete('/:milestoneId/person/:personId', function(req, res, next) {
     return Milestone.findById(req.params.milestoneId, { include: includePeople });
   })
   .then(() => res.status(204).end())
+  .catch(next);
+});
+
+// all milestones for an associated person
+router.get('/person/:personId', function(req, res, next) {
+  Milestone.findAll({
+    include: [{
+      model: People,
+      as: 'MilestonePeople',
+      where: { id: req.params.personId }
+    }]
+  })
+  .then(milestones => res.send(milestones))
   .catch(next);
 });

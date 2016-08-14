@@ -7,7 +7,9 @@
     </button>
   </div>
   <div class="panel-body">
-    {{ details.description }}
+    <textarea type="text" class="form-control" ng-model="details.description" ng-change="update(details)"></textarea>
+
+    <!-- {{ details.description }} -->
 
     <hr />
 
@@ -15,7 +17,7 @@
     <people-list people="details.MilestonePeople" type="'milestone'" remove-fn="removePerson" paginate="false"></people-list>
 
     <!-- add a person to this milestone -->
-    <div class="form-inline">
+    <div class="form-inline" ng-if="people">
       <div class="form-group">
         <label for="person_name">Person Name</label>
         <input

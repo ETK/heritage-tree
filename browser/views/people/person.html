@@ -24,6 +24,25 @@
     <hr>
   </div>
 
+  <!-- Milestones -->
+  <div class="row">
+    <div class="col-md-1">
+      <h4 class="header">Milestones</h4>
+    </div>
+    <div class="col-md-11">
+
+      <div ng-repeat="milestone in person.milestones | orderBy:'year'">
+        <milestone details="milestone"></milestone>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Seperator -->
+  <div class="row">
+    <hr>
+  </div>
+
   <!-- Parents -->
   <div class="row">
     <div class="col-md-1">

@@ -7,9 +7,10 @@ person-list-collapse {
     font-size: 18px;
     font-weight: 300;
   }
+
   .row {
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 }
 
@@ -19,25 +20,28 @@ person-list-collapse {
     font-weight: 400;
     line-height: 1.75;
   }
+
   .person-location {
     font-style: italic;
   }
+
   button {
     display: none;
   }
+
   &:hover {
     button {
-      display:inline;
+      display: inline;
     }
   }
 }
 
 .person-name-row {
-  position: fixed;
-  background-color: #FFFFFF;
-  z-index: 1;
-  width: 100%;
+  background-color: #fff;
   padding-bottom: 10px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 .person-info-row {

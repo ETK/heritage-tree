@@ -35,8 +35,15 @@ router.post('/', function(req, res, next) {
 });
 
 // one milestone
-router.get('/:milestoneId', function(req, res, next) {
+router.get('/:milestoneId', function(req, res) {
   res.send(req.milestone);
+});
+
+// delete a milestone
+router.delete('/:milestoneId', function(req, res, next) {
+  req.milestone.destroy()
+  .then(() => res.status(204).end())
+  .catch(next);
 });
 
 // associate a person to a milestone

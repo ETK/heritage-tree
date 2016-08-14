@@ -19,6 +19,11 @@ app.factory('MilestoneFactory', function($http) {
       .then(res => res.data);
     },
 
+    removeMilestone: function(milestoneId) {
+      return $http.delete(baseUrl + milestoneId)
+      .then(res => res.status);
+    },
+
     addPerson: function(milestoneId, person) {
       return $http.post(baseUrl + milestoneId + '/person', person)
       .then(res => res.data);

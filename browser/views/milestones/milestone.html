@@ -1,6 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title"><strong>{{ details.title }}</strong> ({{ details.year }})</h3>
+    <button type="button" class="btn btn-xs btn-default" ng-click="removeMilestone()">
+      <i class="fa fa-times-circle" aria-hidden="true"></i>
+      remove
+    </button>
   </div>
   <div class="panel-body">
     {{ details.description }}

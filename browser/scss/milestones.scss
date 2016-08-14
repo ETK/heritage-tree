@@ -1,0 +1,17 @@
+milestone {
+  .panel-heading {
+    h3 {
+      display: inline-block;
+    }
+
+    button {
+      display: none;
+    }
+
+    &:hover {
+      button {
+        display: inline;
+      }
+    }
+  }
+}

@@ -34,7 +34,14 @@ router.get('/smallSet', function(req, res, next) {
         }]
       }
     }),
-    Spouses.findAll()
+    Spouses.findAll({
+      where: { $and: [{
+          person_id: { $in: peopleList }
+        }, {
+          spouse_id: { $in: peopleList }
+        }]
+      }
+    })
   ])
   .spread( function(relations, spouses) {
     res.send({ relations: relations,

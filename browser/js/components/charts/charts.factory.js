@@ -88,68 +88,57 @@ app.factory('ChartFactory', function() {
       return nestedPeople;
     },
 
-    transformPeopleForTreeNew: function(dbPeople, relations) {
-      console.log(dbPeople);
-      console.log(relations);
+    transformPeopleForTreeChildFirst: function(dbPeople, relations, spouses) {
       var initialIdx,
           nodesInit;
 
-      // process list of people
-      var people = {},
-          oldest = { birth_year: new Date().getYear() + 1900 };
+      var people = {}, // processed list of people
+          targetPersonId = 1329;
+
       dbPeople.forEach( function(person, index) {
         // transform relations into key = person_id; value = basic values
         people[person.id] = {
           id: person.id,
-          name: person.identifier,
-          birth_year: person.birth_year
+          name: person.identifier
         };
-        // track oldest person
-        if(person.birth_year && person.birth_year < oldest.birth_year) {
-          oldest = person;
-          oldest.idx = index;
-        }
       });
 
       // generate array of children for each person
       // transform relations into key = person_id; value = array of children_ids
-      var children = {};
+      var parents = {};
       relations.forEach( function(relation) {
-        if(!children[relation.parent_id]) children[relation.parent_id] = [];
-        children[relation.parent_id].push( relation.person_id );
+        if(!parents[relation.person_id]) parents[relation.person_id] = [];
+        parents[relation.person_id].push( relation.parent_id );
       });
 
+      // start final list of people with the target person
       // add him/her
-      var nestedPeople = {
-        idx: oldest.idx,
-        id: oldest.id,
-        name: oldest.identifier
-      }
+      var nestedPeople = people[targetPersonId];
 
       var queue = [];
-      // append children
-      if(children[oldest.id]) {
-        nestedPeople.children = children[oldest.id].map( function(childId) {
-          queue.push(people[childId]);
-          return people[childId];
+      // append parents
+      if(parents[targetPersonId]) {
+        nestedPeople.parents = parents[targetPersonId].map( function(parentId) {
+          queue.push(people[parentId]);
+          return people[parentId];
         })
       }
 
-      // use BST=>breadth first to continue appending children
+      // use BST=>breadth first to continue appending parents
       var currPerson;
       while(queue.length) {
         currPerson = queue.shift();
         // find & append children
-        if(children[currPerson.id]) {
-          currPerson.children = children[currPerson.id].map( function(childId) {
-            queue.push(people[childId]);
-            return people[childId];
+        if(parents[currPerson.id]) {
+          currPerson.parents = parents[currPerson.id].map( function(parentId) {
+            queue.push(people[parentId]);
+            return people[parentId];
           });
         }
       }
 
       return nestedPeople;
-    }
+    },
 
   }
 });

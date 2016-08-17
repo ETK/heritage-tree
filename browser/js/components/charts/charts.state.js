@@ -6,11 +6,11 @@ app.config(function ($stateProvider) {
     resolve: {
       treeData: function($q, PeopleFactory, ChartFactory) {
         return $q.all([
-          PeopleFactory.fetchAllSmallSet({ includeRelations: false}),
-          PeopleFactory.fetchRelationsSmallSet()
+          PeopleFactory.fetchAll({ includeRelations: false}),
+          PeopleFactory.fetchRelations()
         ])
         .then( function(data) {
-          return ChartFactory.transformPeopleForTreeNew(data[0], data[1].relations);
+          return ChartFactory.transformPeopleForTreeChildFirst(data[0], data[1].relations, data[1].spouses);
         });
       }
     },

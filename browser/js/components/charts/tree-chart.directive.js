@@ -7,8 +7,6 @@ app.directive('treeChart', function(){
 			data: '='
 		},
 		controller: function($scope, $state) {
-			console.log($scope.data);
-
 
 			var data = $scope.data;
 
@@ -36,7 +34,7 @@ app.directive('treeChart', function(){
 					.separation( function(a,b) { return a.parent === b.parent ? 1 : .5; } )
 					.size([height, width - 160]);
 
-			var root = d3.hierarchy(data);
+			var root = d3.hierarchy(data, function(d) { return d.parents });
 			root.x0 = height / 2;
 			root.y0 = 0;
 			update(root);
@@ -72,11 +70,8 @@ app.directive('treeChart', function(){
 			      .style("fill", function(d) { return d._children ? "#000000" : "#fff"; });
 
 			  nodeEnter.append("text")
-						.attr("x", function(d) { return -20; })
-						// .attr("y", function(d) { return -10; })
 			      .attr("dy", ".35em")
 						.attr("text-anchor", function(d) { return "end"; })
-			      // .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
 			      .text(function(d) { return d.data.name; })
 			      .style("fill-opacity", 1e-6)
       			.call(wrap, textWrapWidth);

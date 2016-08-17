@@ -48,6 +48,24 @@ router.get('/', function(req, res, next) {
   .catch(next);
 });
 
+// all people - temporary, limited data set`
+router.get('/smallSet', function(req, res, next) {
+  var options = { include: allRelations,
+                  where: { id:
+                    { $in:
+                      [1329, 1330, 1331, 1328, 1027, 1444, 1447, 1332, 1333, 1334, 1610, 664, 1327]
+                    }
+                  }
+                };
+  if(req.query && req.query.includeRelations && req.query.includeRelations === 'false') {
+    options.include = null;
+  }
+  People.findAll(options)
+  .then(people => res.send(people))
+  .catch(next);
+});
+
+
 // create a person
 router.post('/', function(req, res, next) {
   People.create(req.body)

@@ -13,6 +13,15 @@ app.factory('PeopleFactory', function($http) {
       .then(res => res.data);
     },
 
+    fetchAllSmallSet: function(options) {
+      return $http({
+        method: 'GET',
+        url: baseUrl + 'smallSet',
+        params: options
+      })
+      .then(res => res.data);
+    },
+
     fetchById: function(id) {
       return $http.get(baseUrl + id)
       .then(res => res.data);
@@ -22,6 +31,12 @@ app.factory('PeopleFactory', function($http) {
       return $http.get(baseUrl + 'relations')
       .then(res => res.data);
     },
+
+    fetchRelationsSmallSet: function() {
+      return $http.get(baseUrl + 'relations/smallSet')
+      .then(res => res.data);
+    },
+
 
     // Create a person - name format is one of:
     // -- [first] [middle] [last] [suffix]

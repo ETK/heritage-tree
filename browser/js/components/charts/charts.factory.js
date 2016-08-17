@@ -99,7 +99,9 @@ app.factory('ChartFactory', function() {
         // transform relations into key = person_id; value = basic values
         people[person.id] = {
           id: person.id,
-          name: person.identifier
+          name: person.full_name,
+          birth_location: person.birth_location,
+          dates: person.dates
         };
       });
 

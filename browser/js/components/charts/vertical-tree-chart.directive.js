@@ -24,7 +24,7 @@ app.directive('verticalTreeChart', function(){
 					// .size([height, width - 160])
 					.nodeSize([150,0]);
 
-			var root = d3.hierarchy(data);
+			var root = d3.hierarchy(data, function(d) { return d.parents });
 			root.x0 = width / 2;
 			root.y0 = 0;
 			update(root);

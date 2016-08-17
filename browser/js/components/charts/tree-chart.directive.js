@@ -11,17 +11,7 @@ app.directive('treeChart', function(){
 			var data = $scope.data;
 
 			var width = window.innerWidth,
-          height = window.innerHeight,
-					maxLabelLength = 0,
-					maxLabelLengthScalar = 5, // adjust to control depth sizing
-					textWrapWidth = 180;
-
-			// variables for drag/drop
-			var selectedNode = null;
-			var draggingNode = null;
-			// panning variables
-			var panSpeed = 200;
-			var panBoundary = 20; // Within 20px from edges will pan when dragging.
+          height = window.innerHeight;
 
 			var svg = d3.select("svg")
 					.attr("width", width)
@@ -32,7 +22,8 @@ app.directive('treeChart', function(){
 			var tree = d3.tree()
 					// distance between sets of parents = 1/2 the distance between parents themselves
 					.separation( function(a,b) { return a.parent === b.parent ? 1 : .5; } )
-					.size([height, width - 160]);
+					.size([height, width - 160])
+					.nodeSize([50,1]);
 
 			var root = d3.hierarchy(data, function(d) { return d.parents });
 			root.x0 = height / 2;
@@ -49,11 +40,8 @@ app.directive('treeChart', function(){
 				var nodes = tree(root).descendants(),
 						links = nodes.slice(1);
 
-				// Determine maxLabelLength
-				nodes.forEach(function(d) { maxLabelLength = Math.max( d.data.name.length, maxLabelLength); });
-
 				// Normalize for fixed-depth
-				nodes.forEach(function(d) { d.y = d.depth * (textWrapWidth + 20) }); //(maxLabelLength * maxLabelLengthScalar); });
+				nodes.forEach(function(d) { d.y = d.depth * 200 });
 
 				// Update the nodes…
 			  var node = g.selectAll("g.node")
@@ -69,12 +57,29 @@ app.directive('treeChart', function(){
 			      .attr("r", 1e-6)
 			      .style("fill", function(d) { return d._children ? "#000000" : "#fff"; });
 
+				// Append text for name
 			  nodeEnter.append("text")
+						.attr("x", 10)
 			      .attr("dy", ".35em")
-						.attr("text-anchor", function(d) { return "end"; })
+						.attr("text-anchor", function(d) { return "start"; })
 			      .text(function(d) { return d.data.name; })
-			      .style("fill-opacity", 1e-6)
-      			.call(wrap, textWrapWidth);
+			      .style("fill-opacity", 1e-6);
+
+				// Append text for birth/death dates + location
+				nodeEnter.append("text")
+						.attr("x", 10)
+						.attr("y", 10)
+						.attr("dy", ".35em")
+						.attr("text-anchor", function(d) { return "start"; })
+						.text(function(d) { return d.data.dates + (d.data.birth_location ? ' ' + d.data.birth_location : ''); })
+
+				// Append text for birth location
+				// nodeEnter.append("text")
+				// 		.attr("x", 10)
+				// 		.attr("y", 20)
+				// 		.attr("dy", ".35em")
+				// 		.attr("text-anchor", function(d) { return "start"; })
+				// 		.text(function(d) { return d.data.birth_location; })
 
 
 				// Transition nodes to their new position.
@@ -87,8 +92,7 @@ app.directive('treeChart', function(){
 			      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
 			  nodeUpdate.select("text")
-			      .style("fill-opacity", 1)
-      			.call(wrap, textWrapWidth);
+			      .style("fill-opacity", 1);
 
 				// Transition exiting nodes to the parent's new position.
 			  var nodeExit = node.exit().transition()
@@ -100,8 +104,7 @@ app.directive('treeChart', function(){
 			      .attr("r", 1e-6);
 
 			  nodeExit.select("text")
-			      .style("fill-opacity", 1e-6)
-      			.call(wrap, textWrapWidth);
+			      .style("fill-opacity", 1e-6);
 
 				// Update the links…
 			  var link = g.selectAll("path.link")
@@ -218,31 +221,6 @@ app.directive('treeChart', function(){
 			    "C" + (d.y + d.parent.y) / 2 + "," + d.x +
 			    " " + (d.y + d.parent.y) / 2 + "," + d.parent.x +
 			    " " + d.parent.y + "," + d.parent.x;
-			}
-
-			// Wrap text
-			function wrap(text, width) {
-			  text.each(function() {
-			    var text = d3.select(this),
-			        words = text.text().split(/\s+/).reverse(),
-			        word,
-			        line = [],
-			        lineNumber = 0,
-			        lineHeight = 1.1, // ems
-			        y = text.attr("y"),
-			        dy = parseFloat(text.attr("dy")),
-			        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-			    while (word = words.pop()) {
-			      line.push(word);
-			      tspan.text(line.join(" "));
-			      if (tspan.node().getComputedTextLength() > width) {
-			        line.pop();
-			        tspan.text(line.join(" "));
-			        line = [word];
-			        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-			      }
-			    }
-			  });
 			}
 
     }

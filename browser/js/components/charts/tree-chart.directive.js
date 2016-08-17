@@ -7,12 +7,13 @@ app.directive('treeChart', function(){
 			data: '='
 		},
 		controller: function($scope, $state) {
-			// console.log($scope.data)
 
 			var data = $scope.data;
 
 			var width = window.innerWidth,
-          height = window.innerHeight;
+          height = window.innerHeight,
+					maxLabelLength = 0,
+					maxLabelLengthScalar = 5; // adjust to control depth sizing
 
 			// variables for drag/drop
 			var selectedNode = null;
@@ -25,9 +26,11 @@ app.directive('treeChart', function(){
 					.attr("width", width)
 					.attr("height", height);
 
-			var g = svg.append("g").attr("transform", "translate(40,0)");
+			var g = svg.append("g").attr("transform", "translate(4000,500)");
 
 			var tree = d3.tree()
+					// distance between sets of parents = 1/2 the distance between parents themselves
+					.separation( function(a,b) { return a.parent === b.parent ? 1 : .5; } )
 					.size([height, width - 160]);
 
 			var root = d3.hierarchy(data);
@@ -45,8 +48,11 @@ app.directive('treeChart', function(){
 				var nodes = tree(root).descendants(),
 						links = nodes.slice(1);
 
+				// Determine maxLabelLength
+				nodes.forEach(function(d) { maxLabelLength = Math.max( d.data.name.length, maxLabelLength); });
+
 				// Normalize for fixed-depth
-				nodes.forEach(function(d) { d.y = d.depth * 180; });
+				nodes.forEach(function(d) { d.y = d.depth * (maxLabelLength * maxLabelLengthScalar); });
 
 				// Update the nodes…
 			  var node = g.selectAll("g.node")
@@ -63,8 +69,8 @@ app.directive('treeChart', function(){
 			      .style("fill", function(d) { return d._children ? "#000000" : "#fff"; });
 
 			  nodeEnter.append("text")
-						.attr("x", function(d) { return -10; })
-			      // .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+						// .attr("x", function(d) { return -10; })
+						.attr("y", function(d) { return -10; })
 			      .attr("dy", ".35em")
 						.attr("text-anchor", function(d) { return "end"; })
 			      // .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })

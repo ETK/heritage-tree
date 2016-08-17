@@ -20,6 +20,29 @@ app.config(function ($stateProvider) {
   });
 });
 
+// Vertical tree chart
+app.config(function ($stateProvider) {
+  $stateProvider.state('verticalTreeChart', {
+    url: '/charts/vertical-tree',
+    templateUrl: 'views/charts/vertical-tree.html',
+    resolve: {
+      treeData: function($q, PeopleFactory, ChartFactory) {
+        return $q.all([
+          PeopleFactory.fetchAll({ includeRelations: false}),
+          PeopleFactory.fetchRelations()
+        ])
+        .then( function(data) {
+          return ChartFactory.transformPeopleForTree(data[0], data[1].relations, data[1].spouses);
+        });
+      }
+    },
+    controller: function($scope, treeData) {
+      $scope.treeData = treeData;
+    }
+  });
+});
+
+
 // Force chart
 app.config(function ($stateProvider) {
   $stateProvider.state('forceChart', {

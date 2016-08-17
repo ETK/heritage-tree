@@ -12,29 +12,20 @@ app.directive('verticalTreeChart', function(){
 
 			var width = window.innerWidth,
           height = window.innerHeight,
-					maxLabelLength = 0,
-					maxLabelLengthScalar = 5; // adjust to control depth sizing
-
-			// variables for drag/drop
-			var selectedNode = null;
-			var draggingNode = null;
-			// panning variables
-			var panSpeed = 200;
-			var panBoundary = 20; // Within 20px from edges will pan when dragging.
+					textWrapWidth = 100;
 
 			var svg = d3.select("svg")
 					.attr("width", width)
 					.attr("height", height);
 
-			var g = svg.append("g").attr("transform", "translate(4000,500)");
+			var g = svg.append("g").attr("transform", "translate(40,0)");
 
 			var tree = d3.tree()
-					// distance between sets of parents = 1/2 the distance between parents themselves
-					.separation( function(a,b) { return a.parent === b.parent ? 1 : .5; } )
-					.size([height, width - 160]);
+					// .size([height, width - 160])
+					.nodeSize([150,0]);
 
 			var root = d3.hierarchy(data);
-			root.x0 = height / 2;
+			root.x0 = width / 2;
 			root.y0 = 0;
 			update(root);
 			centerNode(root);
@@ -48,11 +39,8 @@ app.directive('verticalTreeChart', function(){
 				var nodes = tree(root).descendants(),
 						links = nodes.slice(1);
 
-				// Determine maxLabelLength
-				nodes.forEach(function(d) { maxLabelLength = Math.max( d.data.name.length, maxLabelLength); });
-
 				// Normalize for fixed-depth
-				nodes.forEach(function(d) { d.y = d.depth * (maxLabelLength * maxLabelLengthScalar); });
+				nodes.forEach(function(d) { d.y = d.depth * 75; });
 
 				// Update the nodes…
 			  var node = g.selectAll("g.node")
@@ -61,7 +49,7 @@ app.directive('verticalTreeChart', function(){
 				// Enter any new nodes at the parent's previous position.
 			  var nodeEnter = node.enter().append("g")
 			      .attr("class", "node")
-			      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+			      .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; })
 			      .on("click", click);
 
 				nodeEnter.append("circle")
@@ -69,38 +57,39 @@ app.directive('verticalTreeChart', function(){
 			      .style("fill", function(d) { return d._children ? "#000000" : "#fff"; });
 
 			  nodeEnter.append("text")
-						// .attr("x", function(d) { return -10; })
 						.attr("y", function(d) { return -10; })
 			      .attr("dy", ".35em")
-						.attr("text-anchor", function(d) { return "end"; })
-			      // .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-			      .text(function(d) { return d.data.name; })
-			      .style("fill-opacity", 1e-6);
+						.attr("text-anchor", function(d) { return "middle"; })
+				      .text(function(d) { return d.data.name; })
+			      .style("fill-opacity", 1e-6)
+						.call(wrap, textWrapWidth);
 
 
 				// Transition nodes to their new position.
 			  var nodeUpdate = node.merge(nodeEnter).transition()
 			      .duration(duration)
-			      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+			      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
 			  nodeUpdate.select("circle")
 			      .attr("r", 4.5)
 			      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
 			  nodeUpdate.select("text")
-			      .style("fill-opacity", 1);
+			      .style("fill-opacity", 1)
+      			.call(wrap, textWrapWidth);
 
 				// Transition exiting nodes to the parent's new position.
 			  var nodeExit = node.exit().transition()
 			      .duration(duration)
-			      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+			      .attr("transform", function(d) { return "translate(" + source.x + "," + source.y + ")"; })
 			      .remove();
 
 			  nodeExit.select("circle")
 			      .attr("r", 1e-6);
 
 			  nodeExit.select("text")
-			      .style("fill-opacity", 1e-6);
+			      .style("fill-opacity", 1e-6)
+						.call(wrap, textWrapWidth);
 
 				// Update the links…
 			  var link = g.selectAll("path.link")
@@ -183,10 +172,10 @@ app.directive('verticalTreeChart', function(){
 			// Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 			function centerNode(source) {
         var scale = d3.zoomTransform(source).k; // not working properly
-        var x = -source.y0;
-        var y = -source.x0;
+        var x = -source.x0;
+        var y = -source.y0;
         x = x * scale + width / 2;
-        y = y * scale + height / 2;
+        y = y * scale + height / 10; //  center at +10% of screen
         d3.select('g').transition()
             .duration(duration)
             .attr("transform", "translate(" + x + "," + y + ")scale(" + scale + ")");
@@ -213,10 +202,35 @@ app.directive('verticalTreeChart', function(){
 			}
 
 			function connector(d) {
-			  return "M" + d.y + "," + d.x +
-			    "C" + (d.y + d.parent.y) / 2 + "," + d.x +
-			    " " + (d.y + d.parent.y) / 2 + "," + d.parent.x +
-			    " " + d.parent.y + "," + d.parent.x;
+			  return "M" + d.x + "," + d.y +
+			    "C" + (d.x + d.parent.x) / 2 + "," + d.y +
+			    " " + (d.x + d.parent.x) / 2 + "," + d.parent.y +
+			    " " + d.parent.x + "," + d.parent.y;
+			}
+
+			// Wrap text
+			function wrap(text, width) {
+			  text.each(function() {
+			    var text = d3.select(this),
+			        words = text.text().split(/\s+/).reverse(),
+			        word,
+			        line = [],
+			        lineNumber = 0,
+			        lineHeight = 1.1, // ems
+			        y = text.attr("y"),
+			        dy = parseFloat(text.attr("dy")),
+			        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+			    while (word = words.pop()) {
+			      line.push(word);
+			      tspan.text(line.join(" "));
+			      if (tspan.node().getComputedTextLength() > width) {
+			        line.pop();
+			        tspan.text(line.join(" "));
+			        line = [word];
+			        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+			      }
+			    }
+			  });
 			}
 
     }

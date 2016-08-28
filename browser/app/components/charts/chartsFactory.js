@@ -1,9 +1,5 @@
 app.factory('ChartFactory', function() {
 
-  function nestRelation(relations) {
-
-  }
-
   // Exported functionality
 
   return {
@@ -89,12 +85,15 @@ app.factory('ChartFactory', function() {
       return nestedPeople;
     },
 
-    transformPeopleForTreeChildFirst: function(dbPeople, relations, spouses) {
+    transformPeopleForTreeChildFirst: function(dbPeople, relations, spouses, startingPersonId) {
       var initialIdx,
           nodesInit;
 
-      var people = {}, // processed list of people
-          targetPersonId = 1329;
+      var people = {}; // processed list of people
+
+      // Starting person - by default, me
+      startingPersonId = startingPersonId || 1329;
+      console.log(startingPersonId);
 
       dbPeople.forEach( function(person, index) {
         // transform relations into key = person_id; value = basic values
@@ -116,12 +115,12 @@ app.factory('ChartFactory', function() {
 
       // start final list of people with the target person
       // add him/her
-      var nestedPeople = people[targetPersonId];
+      var nestedPeople = people[startingPersonId];
 
       var queue = [];
       // append parents
-      if(parents[targetPersonId]) {
-        nestedPeople.parents = parents[targetPersonId].map( function(parentId) {
+      if(parents[startingPersonId]) {
+        nestedPeople.parents = parents[startingPersonId].map( function(parentId) {
           queue.push(people[parentId]);
           return people[parentId];
         })
@@ -139,6 +138,8 @@ app.factory('ChartFactory', function() {
           });
         }
       }
+
+      console.log(nestedPeople);
 
       return nestedPeople;
     },

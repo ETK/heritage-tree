@@ -1,1 +1,20 @@
+<!-- Select starting person -->
+<div class="form-inline">
+  <div class="form-group">
+    <label for="starting_person">Starting person: </label>
+    <input
+       type="text"
+       id="starting_person"
+       class="form-control"
+       style="width: 300px"
+       ng-model="startingPerson"
+       uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
+       typeahead-template-url="/common/typeahead/typeahead.html"
+       typeahead-focus-first="false">
+   </div>
+  <button class="btn btn-default" ng-click="selectStartingPerson(startingPerson)">
+    update
+  </button>
+</div>
+
 <tree-chart data="treeData" style="height: 760px; width: 960px"></tree-chart>

@@ -4,8 +4,14 @@ app.config(function ($stateProvider) {
     url: '/charts/tree',
     templateUrl: 'components/charts/treeChart/tree.html',
     resolve: {
+      people: function(PeopleFactory) {
+        return PeopleFactory.fetchAll({ includeRelations: false})
+      },
+      relations: function(PeopleFactory) {
+        return PeopleFactory.fetchRelations();
+      },
       treeData: function($q, PeopleFactory, ChartFactory) {
-        return $q.all([
+        return $q.all([ // TODO: streamline - no need to hit database twice
           PeopleFactory.fetchAll({ includeRelations: false}),
           PeopleFactory.fetchRelations()
         ])
@@ -14,8 +20,16 @@ app.config(function ($stateProvider) {
         });
       }
     },
-    controller: function($scope, treeData) {
+    controller: function($scope, treeData, people, relations, ChartFactory) {
+      $scope.people = people;
       $scope.treeData = treeData;
+
+      $scope.selectStartingPerson = function(startingPerson) {
+        $scope.treeData = ChartFactory.transformPeopleForTreeChildFirst(people, relations.relations, relations.spouses, startingPerson.id);
+      }
+
+      // TODO: implement way of updating chart => event emitter?
+
     }
   });
 });

@@ -27,7 +27,7 @@
            style="width: 300px"
            ng-model="person"
            uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
-           typeahead-template-url="/views/common/typeahead.html"
+           typeahead-template-url="common/typeahead/typeahead.html"
            typeahead-focus-first="false">
      </div>
       <button class="btn btn-default" ng-click="addPerson(person)">

@@ -3,7 +3,7 @@ app.directive('navbar', function (PeopleFactory, $state) {
   return {
     restrict: 'E',
     scope: {},
-    templateUrl: 'views/common/navbar.html',
+    templateUrl: 'common/navbar/navbar.html',
     link: function (scope) {
 
       PeopleFactory.fetchAll({ includeRelations: false })

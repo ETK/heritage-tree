@@ -4,8 +4,8 @@ var chalk = require('chalk');
 var util = require('util');
 
 var rootPath = path.join(__dirname, '../../');
-var indexPath = path.join(rootPath, './browser/views/index.html');
-var faviconPath = path.join(rootPath, './public/favicon.png');
+var indexPath = path.join(rootPath, './browser/app/index.html');
+var faviconPath = path.join(rootPath, './browser/assets/favicon.png');
 
 var logMiddleware = function (req, res, next) {
     util.log(('---NEW REQUEST---'));

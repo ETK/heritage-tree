@@ -5,7 +5,7 @@ app.directive('milestone', function (MilestoneFactory) {
       details: '=',
       people: '=?' // optional - used for add person
     },
-    templateUrl: 'views/milestones/milestone.html',
+    templateUrl: 'components/milestones/milestone.html',
     link: function (scope) {
 
       scope.addPerson = function(person) {

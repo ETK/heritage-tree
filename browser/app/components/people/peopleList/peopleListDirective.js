@@ -10,7 +10,7 @@ app.directive('peopleList', function (PeopleFactory, MilestoneFactory) {
       paginationId: '=?',
       removeFn: '='
     },
-    templateUrl: 'views/people/people-list.html',
+    templateUrl: 'components/people/peopleList/peopleList.html',
     link: function(scope) {
       // set defaults if not specified
       scope.type = scope.type || 'parent-child';

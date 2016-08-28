@@ -2,7 +2,7 @@
 app.config(function ($stateProvider) {
   $stateProvider.state('treeChart', {
     url: '/charts/tree',
-    templateUrl: 'views/charts/tree.html',
+    templateUrl: 'components/charts/treeChart/tree.html',
     resolve: {
       treeData: function($q, PeopleFactory, ChartFactory) {
         return $q.all([
@@ -24,7 +24,7 @@ app.config(function ($stateProvider) {
 app.config(function ($stateProvider) {
   $stateProvider.state('topDownTreeChart', {
     url: '/charts/top-down-tree',
-    templateUrl: 'views/charts/top-down-tree.html',
+    templateUrl: 'components/charts/topDownTreeChart/topDownTree.html',
     resolve: {
       treeData: function($q, PeopleFactory, ChartFactory) {
         return $q.all([
@@ -47,7 +47,7 @@ app.config(function ($stateProvider) {
 app.config(function ($stateProvider) {
   $stateProvider.state('forceChart', {
     url: '/charts/force',
-    templateUrl: 'views/charts/force.html',
+    templateUrl: 'components/charts/forceChart/force.html',
     resolve: {
       forceData: function(PeopleFactory, ChartFactory) {
         return PeopleFactory.fetchAll()

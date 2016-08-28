@@ -62,7 +62,7 @@
              style="width: 300px"
              ng-model="parent"
              uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
-             typeahead-template-url="/views/common/typeahead.html"
+             typeahead-template-url="common/typeahead/typeahead.html"
              typeahead-focus-first="false">
        </div>
         <button class="btn btn-default" ng-click="addParent(parent)">
@@ -97,7 +97,7 @@
              style="width: 300px"
              ng-model="spouse"
              uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
-             typeahead-template-url="/views/common/typeahead.html"
+             typeahead-template-url="/common/typeahead/typeahead.html"
              typeahead-focus-first="false">
        </div>
         <button class="btn btn-default" ng-click="addSpouse(spouse)">
@@ -132,7 +132,7 @@
              style="width: 300px"
              ng-model="child"
              uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
-             typeahead-template-url="/views/common/typeahead.html"
+             typeahead-template-url="/common/typeahead/typeahead.html"
              typeahead-focus-first="false">
          </div>
         <button class="btn btn-default" ng-click="addChild(child)">

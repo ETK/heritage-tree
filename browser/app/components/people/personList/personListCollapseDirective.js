@@ -4,7 +4,7 @@ app.directive('personListCollapse', function ($rootScope, PeopleFactory) {
     scope: {
       person: '='
     },
-    templateUrl: 'views/people/person-list-collapse.html',
+    templateUrl: 'components/people/personList/personListCollapse.html',
     link: function (scope) {
       scope.update = function(updates) {
         return PeopleFactory.updatePerson(scope.person.id, updates);

@@ -1,4 +1,4 @@
-<dir-pagination-controls ng-if="paginate" template-url="views/common/pagination.html" pagination-id="paginationId"></dir-pagination-controls>
+<dir-pagination-controls ng-if="paginate" template-url="common/pagination/pagination.html" pagination-id="paginationId"></dir-pagination-controls>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default" dir-paginate="person in people | itemsPerPage: numPerPage" pagination-id="paginationId">
@@ -40,4 +40,4 @@
   </div>
 </div>
 
-<dir-pagination-controls ng-if="paginate" template-url="views/common/pagination.html" pagination-id="paginationId"></dir-pagination-controls>
+<dir-pagination-controls ng-if="paginate" template-url="common/pagination/pagination.html" pagination-id="paginationId"></dir-pagination-controls>

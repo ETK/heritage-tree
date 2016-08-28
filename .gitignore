@@ -1,7 +1,7 @@
 node_modules
 npm-debug.log
-public/main.js
-public/style.css
+browser/assets/main.js
+browser/assets/style.css
 .DS_Store
 *.sqlite
 db/seeds/people.js

@@ -1,7 +1,7 @@
 app.config(function ($stateProvider) {
   $stateProvider.state('person', {
     url: '/people/:personId',
-    templateUrl: 'views/people/person.html',
+    templateUrl: 'components/people/person/person.html',
     controller: 'PersonController',
     resolve: {
       person: function(PeopleFactory, $stateParams) {

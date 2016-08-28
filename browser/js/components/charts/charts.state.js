@@ -22,9 +22,9 @@ app.config(function ($stateProvider) {
 
 // Vertical tree chart
 app.config(function ($stateProvider) {
-  $stateProvider.state('verticalTreeChart', {
-    url: '/charts/vertical-tree',
-    templateUrl: 'views/charts/vertical-tree.html',
+  $stateProvider.state('topDownTreeChart', {
+    url: '/charts/top-down-tree',
+    templateUrl: 'views/charts/top-down-tree.html',
     resolve: {
       treeData: function($q, PeopleFactory, ChartFactory) {
         return $q.all([
@@ -32,7 +32,7 @@ app.config(function ($stateProvider) {
           PeopleFactory.fetchRelations()
         ])
         .then( function(data) {
-          return ChartFactory.transformPeopleForTreeChildFirst(data[0], data[1].relations, data[1].spouses);
+          return ChartFactory.transformPeopleForTree(data[0], data[1].relations, data[1].spouses);
         });
       }
     },

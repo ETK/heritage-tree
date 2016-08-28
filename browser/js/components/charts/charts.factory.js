@@ -56,6 +56,8 @@ app.factory('ChartFactory', function() {
         children[relation.parent_id].push( relation.person_id );
       });
 
+      console.log(children)
+
       // add him/her
       var nestedPeople = {
         idx: oldest.idx,

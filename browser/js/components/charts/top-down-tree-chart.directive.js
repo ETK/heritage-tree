@@ -8,7 +8,6 @@ app.directive('topDownTreeChart', function(){
 		},
 		controller: function($scope, $state) {
 
-
 			var data = $scope.data;
 
 			var width = window.innerWidth,
@@ -24,7 +23,7 @@ app.directive('topDownTreeChart', function(){
 					// distance between sets of parents = 1/2 the distance between parents themselves
 					.separation( function(a,b) { return a.parent === b.parent ? 1 : .5; } )
 					.size([height, width - 160])
-					.nodeSize([50,1]);
+					.nodeSize([25,1]);
 
 			var root = d3.hierarchy(data, function(d) { return d.children });
 			root.x0 = height / 2;
@@ -73,15 +72,6 @@ app.directive('topDownTreeChart', function(){
 						.attr("dy", ".35em")
 						.attr("text-anchor", function(d) { return "start"; })
 						.text(function(d) { return d.data.dates + (d.data.birth_location ? ' ' + d.data.birth_location : ''); })
-
-				// Append text for birth location
-				// nodeEnter.append("text")
-				// 		.attr("x", 10)
-				// 		.attr("y", 20)
-				// 		.attr("dy", ".35em")
-				// 		.attr("text-anchor", function(d) { return "start"; })
-				// 		.text(function(d) { return d.data.birth_location; })
-
 
 				// Transition nodes to their new position.
 			  var nodeUpdate = node.merge(nodeEnter).transition()

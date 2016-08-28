@@ -8,6 +8,7 @@ app.directive('topDownTreeChart', function(){
 		},
 		controller: function($scope, $state) {
 
+
 			var data = $scope.data;
 
 			var width = window.innerWidth,
@@ -25,7 +26,7 @@ app.directive('topDownTreeChart', function(){
 					.size([height, width - 160])
 					.nodeSize([50,1]);
 
-			var root = d3.hierarchy(data, function(d) { return d.parents });
+			var root = d3.hierarchy(data, function(d) { return d.children });
 			root.x0 = height / 2;
 			root.y0 = 0;
 			update(root);

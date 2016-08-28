@@ -27,7 +27,7 @@ app.factory('ChartFactory', function() {
       return { nodes: nodes, links: links };
     },
 
-    transformPeopleForTree: function(dbPeople, relations, spouses) {
+    transformPeopleForTopDownTree: function(dbPeople, relations, spouses) {
       var initialIdx,
           nodesInit;
 
@@ -39,6 +39,8 @@ app.factory('ChartFactory', function() {
         people[person.id] = {
           id: person.id,
           name: person.identifier,
+          birth_location: person.birth_location,
+          dates: person.dates,
           birth_year: person.birth_year
         };
         // track oldest person
@@ -48,6 +50,9 @@ app.factory('ChartFactory', function() {
         }
       });
 
+      // var startingPersonId = oldest.id; // need to simplify
+      var startingPersonId = 972; // oldest Lincoln
+
       // generate array of children for each person
       // transform relations into key = person_id; value = array of children_ids
       var children = {};
@@ -56,19 +61,13 @@ app.factory('ChartFactory', function() {
         children[relation.parent_id].push( relation.person_id );
       });
 
-      console.log(children)
-
       // add him/her
-      var nestedPeople = {
-        idx: oldest.idx,
-        id: oldest.id,
-        name: oldest.identifier
-      }
+      var nestedPeople = people[startingPersonId];
 
       var queue = [];
       // append children
-      if(children[oldest.id]) {
-        nestedPeople.children = children[oldest.id].map( function(childId) {
+      if(children[startingPersonId]) {
+        nestedPeople.children = children[startingPersonId].map( function(childId) {
           queue.push(people[childId]);
           return people[childId];
         })

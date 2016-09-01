@@ -36,6 +36,7 @@ app.factory('ChartFactory', function($q) {
       else startingPersonId = startingPersonId || 972;
 
       dbPeople.forEach( function(person, index) {
+        console.log('PROCESSING PERSON # ',person.id)
         // transform relations into key = person_id; value = basic values
         people[person.id] = {
           id: person.id,

@@ -2,6 +2,7 @@ app.controller('TreeChartCtrl', function ($scope, treeData, people, relations, C
 
   $scope.people = people;
   $scope.treeData = treeData;
+  $scope.treeType = treeType;
 
   // display default person in input field
   $scope.startingPerson = {
@@ -10,7 +11,7 @@ app.controller('TreeChartCtrl', function ($scope, treeData, people, relations, C
   };
 
   $scope.selectStartingPerson = function(startingPerson) {
-    ChartFactory.buildTreeData(treeType, people, relations.relations, startingPerson.id)
+    ChartFactory.buildTreeData($scope.treeType, people, relations.relations, startingPerson.id)
     .then( function(newTreeData) {
       $rootScope.$broadcast('new-tree-chart-data', newTreeData);
     });

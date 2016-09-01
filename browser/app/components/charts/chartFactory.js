@@ -45,6 +45,8 @@ app.factory('ChartFactory', function($q) {
         };
       });
 
+      console.log('DONE PROCESSING PEOPLE')
+
       // generate array of next nodes (parents or children) for each person
       // transform relations into key = person_id; value = array of children_ids
       var nextPeople = {};
@@ -58,6 +60,9 @@ app.factory('ChartFactory', function($q) {
         }
       });
 
+      console.log('DONE PROCESSING RELATIONS')
+
+
       // start final list of people with the target person
       // add him/her
       var nestedPeople = people[startingPersonId];
@@ -70,6 +75,9 @@ app.factory('ChartFactory', function($q) {
           return people[nextPersonId];
         })
       }
+
+      console.log('STARTING BREADTH FIRST TRAVERSAL')
+
 
       // use BST=>breadth first to continue appending parents
       var currPerson;

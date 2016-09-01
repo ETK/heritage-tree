@@ -1,8 +1,8 @@
 <!-- filter bar -->
 <div class="container">
   <div class="row">
-    <div class="col-md-4 form-group">
-      <input class="form-control" placeholder="Filter..." ng-model="filterText"/>
+    <div class="col-md-5 form-group">
+      <br /><input class="form-control input-lg" placeholder="Filter..." ng-model="filterText"/>
     </div>
   </div>
 </div>
@@ -13,7 +13,7 @@
   <div class="row">
     <div class="col-md-12">
 
-      <people-list people="people | filter:filterText" paginate="true" num-per-page="50" pagination-id="'people-pages'"></people-list>
+      <people-list people="people | filter:filterText" paginate="true" num-per-page="25" pagination-id="'people-pages'"></people-list>
 
     </div>
   </div>

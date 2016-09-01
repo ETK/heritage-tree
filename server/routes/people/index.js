@@ -39,7 +39,8 @@ router.param('spouseId', function(req, res, next, id) {
 
 // all people
 router.get('/', function(req, res, next) {
-  var options = { include: allRelations };
+  var options = { include: allRelations,
+                  order: [['birth_year', 'ASC']] };
   if(req.query && req.query.includeRelations && req.query.includeRelations === 'false') {
     options.include = null;
   }

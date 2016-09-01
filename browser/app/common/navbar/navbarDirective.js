@@ -15,9 +15,9 @@ app.directive('navbar', function (PeopleFactory, $state) {
       ];
 
       scope.chartItems = [
-        { label: 'Force Chart', state: 'forceChart' },
         { label: 'Ancestor Tree Chart', state: 'ancestorTreeChart' },
-        { label: 'Descendant Tree Chart', state: 'descendantTreeChart' }
+        { label: 'Descendant Tree Chart', state: 'descendantTreeChart' },
+        { label: 'Force Chart', state: 'forceChart' }
       ]
 
     }

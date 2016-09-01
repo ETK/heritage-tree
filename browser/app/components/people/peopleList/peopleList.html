@@ -15,13 +15,13 @@
         <span ng-if="person.primary_location"> | {{ person.primary_location }}</span>
       </span>
       <span class="">
-        <button type="button" class="btn btn-xs btn-default"
+        <button type="button" class="btn btn-xs btn-info"
                 data-toggle="collapse"
                 data-target="#person-collapse-{{ person.id }}">
           <i class="fa fa-pencil" aria-hidden="true"></i>
           quick edit
         </button>
-        <button type="button" class="btn btn-xs btn-default" ng-click="removeRelation(person)">
+        <button type="button" class="btn btn-xs btn-danger" ng-click="removeRelation(person)">
           <i class="fa fa-minus" aria-hidden="true"></i>
           remove relation
         </button>

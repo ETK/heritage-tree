@@ -162,8 +162,8 @@ app.directive('treeChart', function(){
 			// Calculate window size
 			function getWindowSize() {
 				return {
-					width: window.innerWidth,
-					height: window.innerHeight - 100
+					width: window.innerWidth ,
+					height: window.innerHeight - 115
 				};
 			}
 

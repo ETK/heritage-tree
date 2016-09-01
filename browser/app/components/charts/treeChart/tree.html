@@ -1,20 +1,29 @@
 <!-- Select starting person -->
-<div class="form-inline">
-  <div class="form-group">
-    <label for="starting_person">Starting person: </label>
-    <input
-       type="text"
-       id="starting_person"
-       class="form-control"
-       style="width: 300px"
-       ng-model="startingPerson"
-       uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
-       typeahead-template-url="/common/typeahead/typeahead.html"
-       typeahead-focus-first="false">
-   </div>
-  <button class="btn btn-default" ng-click="selectStartingPerson(startingPerson)">
-    update
-  </button>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-xs-12">
+      <div class="input-group">
+        <span class="input-group-addon">
+          Start with
+        </span>
+        <input
+          type="text"
+          id="starting_person"
+          class="form-control"
+          placeholder="(starting person)"
+          ng-model="startingPerson"
+          uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
+          typeahead-template-url="/common/typeahead/typeahead.html"
+          typeahead-focus-first="false">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" ng-click="selectStartingPerson(startingPerson)">
+            <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> update
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
 
+<!-- chart -->
 <tree-chart data="treeData"></tree-chart>

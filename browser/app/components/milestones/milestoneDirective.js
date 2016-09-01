@@ -1,4 +1,4 @@
-app.directive('milestone', function (MilestoneFactory) {
+app.directive('milestone', function (MilestoneFactory, $state) {
   return {
     restrict: 'E',
     scope: {
@@ -23,7 +23,7 @@ app.directive('milestone', function (MilestoneFactory) {
       scope.removeMilestone = function() {
         return MilestoneFactory.removeMilestone(scope.details.id)
         .then( function(resStatus) {
-          if(resStatus === 204) window.location.reload();
+          if(resStatus === 204) $state.reload();
           else console.log('Milestone not found; no action taken.');
         });
       }

@@ -1,39 +1,47 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong>{{ details.title }}</strong> ({{ details.year }})</h3>
-    <button type="button" class="btn btn-xs btn-default" ng-click="removeMilestone()">
-      <i class="fa fa-times-circle" aria-hidden="true"></i>
-      remove
-    </button>
+  <div class="panel-heading" role="button" data-toggle="collapse" data-target="#milestone-collapse-{{ details.id }}">
+    <h3 class="panel-title"><strong>{{ details.year }}</strong> - {{ details.title }}</h3>
   </div>
-  <div class="panel-body">
-    <textarea type="text" class="form-control" ng-model="details.description" ng-change="update(details)" rows="5"></textarea>
 
-    <!-- {{ details.description }} -->
+  <!-- Collapsable body -->
+  <div class="panel-collapse collapse" id="milestone-collapse-{{ details.id }}" role="tabpanel">
+     <div class="panel-body">
+       <textarea type="text" class="form-control" ng-model="details.description" ng-change="update(details)" rows="4"></textarea>
 
-    <hr />
+       <!-- {{ details.description }} -->
 
-    <!-- list of people associated with this milestone -->
-    <people-list people="details.MilestonePeople" type="'milestone'" remove-fn="removePerson" paginate="false"></people-list>
+     </div>
+     <div class="panel-body">
 
-    <!-- add a person to this milestone -->
-    <div class="form-inline" ng-if="people">
-      <div class="form-group">
-        <label for="person_name">Person Name</label>
-        <input
+       <!-- list of people associated with this milestone -->
+       <people-list people="details.MilestonePeople" type="'milestone'" remove-fn="removePerson" paginate="false"></people-list>
+
+       <!-- add a person to this milestone -->
+       <div class="input-group input-group-sm" ng-if="people" style="max-width: 500px">
+         <span class="input-group-addon">Tag a person </span>
+         <input
            type="text"
            id="person_name"
            class="form-control"
-           style="width: 300px"
            ng-model="person"
            uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
            typeahead-template-url="common/typeahead/typeahead.html"
            typeahead-focus-first="false">
-     </div>
-      <button class="btn btn-default" ng-click="addPerson(person)">
-        <span class="glyphicon glyphicon-plus"></span> add to milestone
-      </button>
+         <span class="input-group-btn">
+           <button class="btn btn-sm btn-primary" ng-click="addPerson(person)">
+             <span class="glyphicon glyphicon-plus"></span> tag
+           </button>
+         </span>
+       </div>
 
-    </div>
+     </div>
+     <div class="panel-body">
+
+       <button type="button" class="btn btn-xs btn-danger pull-right" ng-click="removeMilestone()">
+         <i class="fa fa-times-circle" aria-hidden="true"></i>
+         remove milestone
+       </button>
+
+     </div>
   </div>
 </div>

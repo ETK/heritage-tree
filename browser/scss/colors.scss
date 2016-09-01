@@ -1,0 +1,59 @@
+// colors
+$dark-grey: #333447;
+$slate-blue: #7096af;
+$brown-grey: #6d696a;
+$onyx: #373e40;
+$light-slate-grey: #77878b;
+$charcoal-blue: #373f51;
+$white: #fff;
+$grey: #6d676e;
+$gold: #c0a062;
+$deep-red: #96031a;
+$hunter-green: #305252;
+$onyx: #373E40;
+$indigo: #23395b;
+$gunmetal: #2D3142;
+$earth-brown: #938274;
+$charcoal: #3d3d3d;
+$granite: #66615F;
+$dark-granite: #443F3C;
+$soft-red: #fe5f55;
+$sea-blue: #779Fa1;
+$sand: #e0cba8;
+$copper: #af7a6d;
+$pewter-blue: #87adba;
+$space-grey: #44484C;
+$deep-taupe: #7b7263;
+$rusty-orange: #ef8354;
+
+// alerts
+$alert-success-text: #3c763d !default;
+$alert-success-bg: #dff0d8 !default;
+$alert-success-border: darken($alert-success-bg, 5%) !default;
+
+$alert-error-text: #a94442 !default;
+$alert-error-bg: #f2dede !default;
+$alert-error-border: darken($alert-error-bg, 5%) !default;
+
+// effects
+$transparent: rgba(255, 255, 255, 0);
+
+$lighten-1: rgba(255, 255, 255, .1);
+$lighten-2: rgba(255, 255, 255, .2);
+$lighten-3: rgba(255, 255, 255, .3);
+$lighten-4: rgba(255, 255, 255, .4);
+$lighten-5: rgba(255, 255, 255, .5);
+$lighten-6: rgba(255, 255, 255, .6);
+$lighten-7: rgba(255, 255, 255, .7);
+$lighten-8: rgba(255, 255, 255, .8);
+$lighten-9: rgba(255, 255, 255, .9);
+
+$darken-1: rgba(0, 0, 0, .1);
+$darken-2: rgba(0, 0, 0, .2);
+$darken-3: rgba(0, 0, 0, .3);
+$darken-4: rgba(0, 0, 0, .4);
+$darken-5: rgba(0, 0, 0, .5);
+$darken-6: rgba(0, 0, 0, .6);
+$darken-7: rgba(0, 0, 0, .7);
+$darken-8: rgba(0, 0, 0, .8);
+$darken-9: rgba(0, 0, 0, .9);

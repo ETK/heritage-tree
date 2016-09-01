@@ -2,24 +2,24 @@
   <div class="col-md-12">
 
     <!-- Name -->
-    <div class="row">
-      <div class="col-md-1 col-sm-1 col-xs-12">
-        <h5 class="form-category">Name</h5>
-      </div>
+    <div class="row form-header-row">
+      <h5>Name</h5>
+    </div>
+    <div class="row form-input-row">
       <div class="form-group col-md-3 col-sm-3 col-xs-5">
-        <label for="first_name_{{ person.id }}">First Name</label>
+        <label for="first_name_{{ person.id }}">First</label>
         <input id="first_name_{{ person.id }}" type="text" class="form-control" ng-model="person.first_name" ng-change="update(person)">
       </div>
       <div class="form-group col-md-2 col-sm-2 col-xs-4">
-        <label for="middle_name_{{ person.id }}">Middle Name</label>
+        <label for="middle_name_{{ person.id }}">Middle</label>
         <input id="middle_name_{{ person.id }}" type="text" class="form-control" ng-model="person.middle_name" ng-change="update(person)">
       </div>
       <div class="form-group col-md-2 col-sm-2 col-xs-3">
         <label for="nick_name_{{ person.id }}">Nickname</label>
         <input id="nick_name_{{ person.id }}" type="text" class="form-control" ng-model="person.nick_name" ng-change="update(person)">
       </div>
-      <div class="form-group col-md-3 col-sm-3 col-xs-5">
-        <label for="last_name_{{ person.id }}">Last Name</label>
+      <div class="form-group col-md-4 col-sm-3 col-xs-5">
+        <label for="last_name_{{ person.id }}">Last</label>
         <input id="last_name_{{ person.id }}" type="text" class="form-control" ng-model="person.last_name" ng-change="update(person)">
       </div>
       <div class="form-group col-md-1 col-sm-1 col-xs-2">
@@ -29,10 +29,10 @@
     </div>
 
     <!-- Dates -->
-    <div class="row">
-      <div class="col-md-1 col-sm-1 col-xs-12 form-category">
-        <h5 class="form-category">Dates</h5>
-      </div>
+    <div class="row form-header-row">
+      <h5>Dates</h5>
+    </div>
+    <div class="row form-input-row">
       <!-- Born -->
       <div class="form-group col-md-2 col-sm-5 col-xs-6">
         <label for="birth_year_{{ person.id }}">Born - Year</label>
@@ -62,10 +62,10 @@
     </div>
 
     <!-- Locations -->
-    <div class="row">
-      <div class="col-md-1 col-sm-2 col-xs-12 form-category">
-        <h5 class="form-category">Locations</h5>
-      </div>
+    <div class="row form-header-row">
+      <h5>Locations</h5>
+    </div>
+    <div class="row form-input-row">
       <!-- Born -->
       <div class="form-group col-md-4 col-sm-3 col-xs-4">
         <label for="birth_location_{{ person.id }}">Born</label>
@@ -84,15 +84,11 @@
     </div>
 
     <!-- Notes -->
-    <div class="row">
-      <div class="col-md-1 col-sm-1 form-category col-sm-1 col-xs-2">
-        <h5 class="form-category">Notes</h5>
-      </div>
-      <div class="form-group col-md-11 col-sm-11 col-xs-10" ng-if="person.relation_to_grandpa">
-        <label for="relation_to_grandpa_{{ person.id }}">Relation to Grandpa</label>
-        <input id="relation_to_grandpa_{{ person.id }}" type="text" class="form-control" ng-model="person.relation_to_grandpa" ng-change="update(person)">
-      </div>
-      <div class="form-group col-md-11 col-md-offset-1 col-sm-11 col-xs-10">
+    <div class="row form-header-row">
+      <h5>Notes</h5>
+    </div>
+    <div class="row form-input-row">
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <label for="notes_{{ person.id }}" ng-if="person.relation_to_grandpa">Notes</label>
         <textarea id="notes_{{ person.id }}" type="text" class="form-control" ng-model="person.notes" ng-change="update(person)"></textarea>
       </div>

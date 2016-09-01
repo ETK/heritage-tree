@@ -1,0 +1,30 @@
+.form-header-row {
+  background-color: rgba(0, 0, 0, .05);
+  padding: 5px 10px;
+
+  h5 {
+    color: $darken-5;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+    text-transform: uppercase;
+  }
+}
+
+.form-input-row {
+  margin: 5px 0 15px;
+
+  label {
+    color: $darken-3;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  input {
+    padding: 1px 5px;
+    font-size: 1.6rem;
+  }
+}

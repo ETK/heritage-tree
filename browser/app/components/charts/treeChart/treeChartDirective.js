@@ -6,7 +6,7 @@ app.directive('treeChart', function(){
 		scope: {
 			data: '='
 		},
-		controller: function($scope, $state) {
+		controller: function($scope, $state, $rootScope) {
 
 			var data = $scope.data;
 
@@ -222,6 +222,14 @@ app.directive('treeChart', function(){
 			    " " + (d.y + d.parent.y) / 2 + "," + d.parent.x +
 			    " " + d.parent.y + "," + d.parent.x;
 			}
+
+			// Handle changes to data set (i.e., new starting person)
+			$rootScope.$on('new-tree-chart-data', function(event, newTreeData) {
+				root = d3.hierarchy(newTreeData, function(d) { return d.parents });
+				root.x0 = height / 2;
+				root.y0 = 0;
+				update(root);
+			});
 
     }
   }

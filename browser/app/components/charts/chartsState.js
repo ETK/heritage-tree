@@ -3,6 +3,7 @@ app.config(function ($stateProvider) {
   $stateProvider.state('treeChart', {
     url: '/charts/tree',
     templateUrl: 'components/charts/treeChart/tree.html',
+    controller: 'TreeChartCtrl',
     resolve: {
       people: function(PeopleFactory) {
         return PeopleFactory.fetchAll({ includeRelations: false})
@@ -20,17 +21,6 @@ app.config(function ($stateProvider) {
         });
       }
     },
-    controller: function($scope, treeData, people, relations, ChartFactory) {
-      $scope.people = people;
-      $scope.treeData = treeData;
-
-      $scope.selectStartingPerson = function(startingPerson) {
-        $scope.treeData = ChartFactory.transformPeopleForTreeChildFirst(people, relations.relations, relations.spouses, startingPerson.id);
-      }
-
-      // TODO: implement way of updating chart => event emitter?
-
-    }
   });
 });
 

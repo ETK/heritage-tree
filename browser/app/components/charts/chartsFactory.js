@@ -1,4 +1,4 @@
-app.factory('ChartFactory', function() {
+app.factory('ChartFactory', function($q) {
 
   // Exported functionality
 
@@ -48,6 +48,7 @@ app.factory('ChartFactory', function() {
 
       // var startingPersonId = oldest.id; // need to simplify
       var startingPersonId = 972; // oldest Lincoln
+      // var startingPersonId = 2084; // Goodrich
 
       // generate array of children for each person
       // transform relations into key = person_id; value = array of children_ids
@@ -139,9 +140,9 @@ app.factory('ChartFactory', function() {
         }
       }
 
-      console.log(nestedPeople);
-
-      return nestedPeople;
+      return $q(function(resolve) {
+        resolve(nestedPeople);
+      });
     },
 
   }

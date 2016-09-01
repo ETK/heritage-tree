@@ -6,4 +6,18 @@ nav {
       background-color: rgba(255,255,255,0.85);
     }
   }
+
+  .navbar-brand {
+    padding: 2px 15px;
+  }
+
+  .navbar-nav li {
+    font-size: 2rem;
+    a {
+      padding: 20px 20px 10px;
+    }
+    &:hover {
+      background-color: rgba(0,0,0,.1);
+    }
+  }
 }

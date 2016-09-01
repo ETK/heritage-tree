@@ -9,14 +9,16 @@ app.directive('navbar', function (PeopleFactory, $state) {
       PeopleFactory.fetchAll({ includeRelations: false })
       .then(people => scope.people = people);
 
-      scope.items = [
-        { label: 'Home', state: 'home' },
+      scope.navItems = [
         { label: 'People', state: 'people' },
         { label: 'Milestones', state: 'milestones' },
+      ];
+
+      scope.chartItems = [
         { label: 'Force Chart', state: 'forceChart' },
         { label: 'Ancestor Tree Chart', state: 'ancestorTreeChart' },
-        { label: 'Descendant Tree Chart', state: 'descendantTreeChart' },
-      ];
+        { label: 'Descendant Tree Chart', state: 'descendantTreeChart' }
+      ]
 
     }
 

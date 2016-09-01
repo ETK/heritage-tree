@@ -9,6 +9,8 @@ app.directive('treeChart', function(){
 		controller: function($scope, $state, $rootScope) {
 
 			var data = $scope.data;
+			console.log('IN DIRECTIVE');
+			console.log(data);
 
 			var width = getWindowSize().width,
           height = getWindowSize().height;
@@ -163,7 +165,7 @@ app.directive('treeChart', function(){
 			function getWindowSize() {
 				return {
 					width: window.innerWidth ,
-					height: window.innerHeight - 115
+					height: window.innerHeight - 60
 				};
 			}
 

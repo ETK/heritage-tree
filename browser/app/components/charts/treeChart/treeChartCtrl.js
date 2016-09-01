@@ -3,6 +3,10 @@ app.controller('TreeChartCtrl', function ($scope, treeData, people, relations, C
   $scope.people = people;
   $scope.treeData = treeData;
   $scope.treeType = treeType;
+  console.log('IN CONTROLLER')
+  console.log($scope.people);
+  console.log($scope.treeData);
+  console.log($scope.treeType);
 
   // display default person in input field
   $scope.startingPerson = {

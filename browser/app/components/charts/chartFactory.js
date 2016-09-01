@@ -24,6 +24,7 @@ app.factory('ChartFactory', function($q) {
     },
 
     buildTreeData: function(treeType, dbPeople, relations, startingPersonId) {
+      console.log("IN FACTORY")
 
       var initialIdx,
           nodesInit;
@@ -82,6 +83,9 @@ app.factory('ChartFactory', function($q) {
           });
         }
       }
+
+      console.log('DONE IN FACTORY')
+      console.log(nestedPeople)
 
       return $q(function(resolve) {
         resolve(nestedPeople);

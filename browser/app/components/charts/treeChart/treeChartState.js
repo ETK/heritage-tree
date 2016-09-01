@@ -16,6 +16,7 @@ app.config(function ($stateProvider) {
         return 'ancestor';
       },
       treeData: function(people, relations, treeType, ChartFactory) {
+        console.log('RESOLVING STATE, IN treeData')
         return ChartFactory.buildTreeData(treeType, people, relations.relations);
       }
     },
@@ -37,6 +38,7 @@ app.config(function ($stateProvider) {
         return 'descendant';
       },
       treeData: function(people, relations, treeType, ChartFactory) {
+        console.log('RESOLVING STATE, IN treeData')
         return ChartFactory.buildTreeData(treeType, people, relations.relations);
       }
     },

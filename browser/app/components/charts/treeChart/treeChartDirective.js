@@ -4,8 +4,7 @@ app.directive('treeChart', function(){
 		restrict: 'E',
     template: '<svg></svg>',
 		scope: {
-			data: '=',
-			type: '=' // ancestor or descendant
+			data: '='
 		},
 		controller: function($scope, $state, $rootScope) {
 
@@ -31,11 +30,11 @@ app.directive('treeChart', function(){
 			update(root);
 			centerNode(root);
 
-			var i = 0, // TODO: what is this for?
+			var i = 0, // used to set node ids
 					duration = 750; // node transition duration in ms
 
 			function setupHierarchy(newData) {
-				let newHierarchy = d3.hierarchy(newData, function(d) { return d.parents });
+				let newHierarchy = d3.hierarchy(newData, function(d) { return d.nextPeople });
 				newHierarchy.x0 = height / 2;
 				newHierarchy.y0 = 0;
 				return newHierarchy;
@@ -51,6 +50,7 @@ app.directive('treeChart', function(){
 				nodes.forEach(function(d) { d.y = d.depth * 200 });
 
 				// Update the nodes
+
 			  var node = g.selectAll("g.node")
 			      .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
@@ -217,7 +217,7 @@ app.directive('treeChart', function(){
 
 			// Handle changes to data set (i.e., new starting person)
 			$rootScope.$on('new-tree-chart-data', function(event, newTreeData) {
-				root = d3.hierarchy(newTreeData, function(d) { return d.parents });
+				root = d3.hierarchy(newTreeData, function(d) { return d.nextPeople });
 				root.x0 = height / 2;
 				root.y0 = 0;
 				update(root);

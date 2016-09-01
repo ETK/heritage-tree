@@ -17,8 +17,11 @@ app.config(function ($stateProvider) {
           PeopleFactory.fetchRelations()
         ])
         .then( function(data) {
-          return ChartFactory.transformPeopleForTreeChildFirst(data[0], data[1].relations, data[1].spouses);
+          return ChartFactory.buildTreeData('ancestor', data[0], data[1].relations, data[1].spouses);
         });
+      },
+      treeType: function() {
+        return 'ancestor';
       }
     },
   });
@@ -36,7 +39,7 @@ app.config(function ($stateProvider) {
           PeopleFactory.fetchRelations()
         ])
         .then( function(data) {
-          return ChartFactory.transformPeopleForTopDownTree(data[0], data[1].relations, data[1].spouses);
+          return ChartFactory.buildTreeData('descendant', data[0], data[1].relations, data[1].spouses);
         });
       }
     },

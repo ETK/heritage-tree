@@ -1,151 +1,147 @@
+<!-- Name -->
+<div class="row">
+  <div class="container">
+    <h2 class="header">
+      {{ person.identifier }}
+    </h2>
+    <hr />
+  </div>
+</div>
 
 <div class="container">
+  <uib-tabset active="activePill" type="pills">
 
-  <!-- Name -->
-  <div class="row person-name-row">
-    <div class="col-md-12">
-      <h2 class="header">
-        {{ person.identifier }}
-      </h2>
-    </div>
-  </div>
+    <!-- Basic info -->
+    <uib-tab index="0" heading="Biography">
+      <div class="row">
+        <div class="col-md-12">
 
-  <!-- Basic info -->
-  <div class="row person-info-row">
-    <div class="col-md-12">
+          <person-list-collapse person="person"></person-list-collapse>
 
-      <person-list-collapse person="person"></person>
+        </div>
+      </div>
+    </uib-tab>
 
-    </div>
-  </div>
+    <!-- Relatives -->
+    <uib-tab index="1" heading="Relatives">
 
-  <!-- Seperator -->
-  <div class="row">
-    <hr>
-  </div>
+      <!-- Parents -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="relative-type" data-toggle="collapse" data-target="#collapseParents" aria-expanded="true" aria-controls="collapseParents" role="button">
+            <h3>Parents</h3>
+          </div>
 
-  <!-- Milestones -->
-  <div class="row">
-    <div class="col-md-1">
-      <h4 class="header">Milestones</h4>
-    </div>
-    <div class="col-md-11">
+          <div class="panel-collapse collapse in" id="collapseParents" role="tabpanel">
 
-      <div ng-repeat="milestone in person.milestones | orderBy:'year'">
-        <milestone details="milestone"></milestone>
+            <people-list people="person.Parents" person="person" paginate="false"></people-list>
+
+            <div class="form-inline">
+              <div class="form-group">
+                <label for="parent_name">Parent Name</label>
+                <input
+                   type="text"
+                   id="parent_name"
+                   class="form-control"
+                   style="width: 300px"
+                   ng-model="parent"
+                   uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
+                   typeahead-template-url="common/typeahead/typeahead.html"
+                   typeahead-focus-first="false">
+             </div>
+              <button class="btn btn-default" ng-click="addParent(parent)">
+                <span class="glyphicon glyphicon-plus"></span> add
+              </button>
+            </div>
+
+          </div>
+
+          <hr />
+        </div>
       </div>
 
-    </div>
-  </div>
+      <!-- Spouses -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="relative-type" data-toggle="collapse" data-target="#collapseSpouses" aria-expanded="true" aria-controls="collapseSpouses" role="button">
+            <h3>Spouses</h3>
+          </div>
 
-  <!-- Seperator -->
-  <div class="row">
-    <hr>
-  </div>
+          <div class="panel-collapse collapse in" id="collapseSpouses" role="tabpanel">
 
-  <!-- Parents -->
-  <div class="row">
-    <div class="col-md-1">
-      <h4 class="header">Parents</h4>
-    </div>
-    <div class="col-md-11">
+            <people-list people="person.Spouses" person="person" type="'spouses'" paginate="false"></people-list>
 
-      <people-list people="person.Parents" person="person" paginate="false"></people-list>
+            <div class="form-inline">
+              <div class="form-group">
+                <label for="spouse_name">Spouse Name</label>
+                <input
+                   type="text"
+                   id="spouse_name"
+                   class="form-control"
+                   style="width: 300px"
+                   ng-model="spouse"
+                   uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
+                   typeahead-template-url="/common/typeahead/typeahead.html"
+                   typeahead-focus-first="false">
+             </div>
+              <button class="btn btn-default" ng-click="addSpouse(spouse)">
+                <span class="glyphicon glyphicon-plus"></span> add
+              </button>
+            </div>
 
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="parent_name">Parent Name</label>
-          <input
-             type="text"
-             id="parent_name"
-             class="form-control"
-             style="width: 300px"
-             ng-model="parent"
-             uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
-             typeahead-template-url="common/typeahead/typeahead.html"
-             typeahead-focus-first="false">
-       </div>
-        <button class="btn btn-default" ng-click="addParent(parent)">
-          <span class="glyphicon glyphicon-plus"></span> add
-        </button>
+          </div>
+
+          <hr />
+        </div>
       </div>
 
-    </div>
-  </div>
+      <!-- Children -->
+      <div class="row" style="margin-bottom: 500px;"> <!-- extra spacing due to Child typeahead -->
+        <div class="col-md-12">
+          <div class="relative-type" data-toggle="collapse" data-target="#collapseChildren" aria-expanded="true" aria-controls="collapseChildren" role="button">
+            <h3>Children</h3>
+          </div>
 
-  <!-- Seperator -->
-  <div class="row">
-    <hr>
-  </div>
+          <div class="panel-collapse collapse in" id="collapseChildren" role="tabpanel">
 
-  <!-- Spouses -->
-  <div class="row">
-    <div class="col-md-1">
-      <h4 class="header">Spouses</h4>
-    </div>
-    <div class="col-md-11">
+            <people-list people="person.Children" person="person" paginate="false"></people-list>
 
-      <people-list people="person.Spouses" person="person" type="'spouses'" paginate="false"></people-list>
+            <div class="form-inline">
+              <div class="form-group">
+                <label for="child_name">Child Name</label>
+                <input
+                   type="text"
+                   id="child_name"
+                   class="form-control"
+                   style="width: 300px"
+                   ng-model="child"
+                   uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
+                   typeahead-template-url="/common/typeahead/typeahead.html"
+                   typeahead-focus-first="false">
+               </div>
+              <button class="btn btn-default" ng-click="addChild(child)">
+                <span class="glyphicon glyphicon-plus"></span> add
+              </button>
+            </div>
 
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="spouse_name">Spouse Name</label>
-          <input
-             type="text"
-             id="spouse_name"
-             class="form-control"
-             style="width: 300px"
-             ng-model="spouse"
-             uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
-             typeahead-template-url="/common/typeahead/typeahead.html"
-             typeahead-focus-first="false">
-       </div>
-        <button class="btn btn-default" ng-click="addSpouse(spouse)">
-          <span class="glyphicon glyphicon-plus"></span> add
-        </button>
+          </div>
+
+        </div>
       </div>
+    </uib-tab>
 
-    </div>
-  </div>
+    <!-- Milestones -->
+    <uib-tab index="2" heading="Milestones" ng-if="person.milestones">
+      <div class="row">
+        <div class="col-md-12">
 
-  <!-- Seperator -->
-  <div class="row">
-    <hr>
-  </div>
+          <div ng-repeat="milestone in person.milestones | orderBy:'year'">
+            <milestone details="milestone"></milestone>
+          </div>
 
-  <!-- Children -->
-  <div class="row">
-    <div class="col-md-1">
-      <h4 class="header">Children</h4>
-    </div>
-    <div class="col-md-11">
-
-      <people-list people="person.Children" person="person" paginate="false"></people-list>
-
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="child_name">Child Name</label>
-          <input
-             type="text"
-             id="child_name"
-             class="form-control"
-             style="width: 300px"
-             ng-model="child"
-             uib-typeahead="person as person.identifier for person in people | filter:{identifier:$viewValue} | limitTo:10"
-             typeahead-template-url="/common/typeahead/typeahead.html"
-             typeahead-focus-first="false">
-         </div>
-        <button class="btn btn-default" ng-click="addChild(child)">
-          <span class="glyphicon glyphicon-plus"></span> add
-        </button>
+        </div>
       </div>
+    </uib-tab>
 
-    </div>
-  </div>
-
-  <!-- Seperator -->
-  <div class="row" style="margin-bottom: 500px;"> <!-- extra spacing due to Child typeahead -->
-    <hr>
-  </div>
-
+  </uib-tabset>
 </div>

@@ -6,3 +6,4 @@ browser/assets/style.css
 *.sqlite
 db/seeds/people.js
 reference/
+*.psd

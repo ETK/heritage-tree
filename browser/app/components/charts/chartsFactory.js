@@ -29,8 +29,9 @@ app.factory('ChartFactory', function($q) {
 
       var people = {}; // processed list of people
 
-      // Starting person - by default, me
-      startingPersonId = startingPersonId || 1329;
+      // Starting person - by default, me (ancestor) or Robert Lincoln (descendant)
+      if(treeType === 'ancestor') startingPersonId = startingPersonId || 1329;
+      else startingPersonId = startingPersonId || 972;
 
       dbPeople.forEach( function(person, index) {
         // transform relations into key = person_id; value = basic values

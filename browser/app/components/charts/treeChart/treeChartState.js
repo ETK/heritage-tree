@@ -1,7 +1,7 @@
-// Tree chart
+// Ancestor-based
 app.config(function ($stateProvider) {
-  $stateProvider.state('treeChart', {
-    url: '/charts/tree',
+  $stateProvider.state('ancestorTreeChart', {
+    url: '/charts/tree/ancestor',
     templateUrl: 'components/charts/treeChart/tree.html',
     controller: 'TreeChartCtrl',
     resolve: {
@@ -27,44 +27,31 @@ app.config(function ($stateProvider) {
   });
 });
 
-// Vertical tree chart
+// Descendant-based
 app.config(function ($stateProvider) {
-  $stateProvider.state('topDownTreeChart', {
-    url: '/charts/top-down-tree',
-    templateUrl: 'components/charts/topDownTreeChart/topDownTree.html',
+  $stateProvider.state('descendantTreeChart', {
+    url: '/charts/tree/descendant',
+    templateUrl: 'components/charts/treeChart/tree.html',
+    controller: 'TreeChartCtrl',
     resolve: {
+      people: function(PeopleFactory) {
+        return PeopleFactory.fetchAll({ includeRelations: false})
+      },
+      relations: function(PeopleFactory) {
+        return PeopleFactory.fetchRelations();
+      },
       treeData: function($q, PeopleFactory, ChartFactory) {
-        return $q.all([
+        return $q.all([ // TODO: streamline - no need to hit database twice
           PeopleFactory.fetchAll({ includeRelations: false}),
           PeopleFactory.fetchRelations()
         ])
         .then( function(data) {
           return ChartFactory.buildTreeData('descendant', data[0], data[1].relations, data[1].spouses);
         });
+      },
+      treeType: function() {
+        return 'descendant';
       }
     },
-    controller: function($scope, treeData) {
-      $scope.treeData = treeData;
-    }
-  });
-});
-
-
-// Force chart
-app.config(function ($stateProvider) {
-  $stateProvider.state('forceChart', {
-    url: '/charts/force',
-    templateUrl: 'components/charts/forceChart/force.html',
-    resolve: {
-      forceData: function(PeopleFactory, ChartFactory) {
-        return PeopleFactory.fetchAll()
-        .then( function(people) {
-          return ChartFactory.transformPeopleForForce(people);
-        });
-      }
-    },
-    controller: function($scope, forceData) {
-      $scope.forceData = forceData;
-    }
   });
 });

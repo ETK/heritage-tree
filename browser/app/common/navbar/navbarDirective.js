@@ -14,8 +14,8 @@ app.directive('navbar', function (PeopleFactory, $state) {
         { label: 'People', state: 'people' },
         { label: 'Milestones', state: 'milestones' },
         { label: 'Force Chart', state: 'forceChart' },
-        { label: 'Tree Chart', state: 'treeChart' },
-        { label: 'Top Down Tree Chart', state: 'topDownTreeChart' },
+        { label: 'Ancestor Tree Chart', state: 'ancestorTreeChart' },
+        { label: 'Descendant Tree Chart', state: 'descendantTreeChart' },
       ];
 
     }

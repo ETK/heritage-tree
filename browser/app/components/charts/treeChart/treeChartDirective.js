@@ -23,7 +23,7 @@ app.directive('treeChart', function(){
 					// distance between sets of parents = 1/2 the distance between parents themselves
 					.separation( function(a,b) { return a.parent === b.parent ? 1 : .5; } )
 					.size([width, height])
-					.nodeSize([50,1]);
+					.nodeSize([25,1]);
 
 			// Initialize tree
 			var root = setupHierarchy(data);

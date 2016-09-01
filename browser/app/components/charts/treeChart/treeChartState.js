@@ -1,5 +1,6 @@
-// Ancestor-based
 app.config(function ($stateProvider) {
+
+  // Ancestor-based
   $stateProvider.state('ancestorTreeChart', {
     url: '/charts/tree/ancestor',
     templateUrl: 'components/charts/treeChart/tree.html',
@@ -11,24 +12,16 @@ app.config(function ($stateProvider) {
       relations: function(PeopleFactory) {
         return PeopleFactory.fetchRelations();
       },
-      treeData: function($q, PeopleFactory, ChartFactory) {
-        return $q.all([ // TODO: streamline - no need to hit database twice
-          PeopleFactory.fetchAll({ includeRelations: false}),
-          PeopleFactory.fetchRelations()
-        ])
-        .then( function(data) {
-          return ChartFactory.buildTreeData('ancestor', data[0], data[1].relations, data[1].spouses);
-        });
-      },
       treeType: function() {
         return 'ancestor';
+      },
+      treeData: function(people, relations, treeType, ChartFactory) {
+        return ChartFactory.buildTreeData(treeType, people, relations.relations);
       }
     },
   });
-});
 
-// Descendant-based
-app.config(function ($stateProvider) {
+  // Descendant-based
   $stateProvider.state('descendantTreeChart', {
     url: '/charts/tree/descendant',
     templateUrl: 'components/charts/treeChart/tree.html',
@@ -40,17 +33,11 @@ app.config(function ($stateProvider) {
       relations: function(PeopleFactory) {
         return PeopleFactory.fetchRelations();
       },
-      treeData: function($q, PeopleFactory, ChartFactory) {
-        return $q.all([ // TODO: streamline - no need to hit database twice
-          PeopleFactory.fetchAll({ includeRelations: false}),
-          PeopleFactory.fetchRelations()
-        ])
-        .then( function(data) {
-          return ChartFactory.buildTreeData('descendant', data[0], data[1].relations, data[1].spouses);
-        });
-      },
       treeType: function() {
         return 'descendant';
+      },
+      treeData: function(people, relations, treeType, ChartFactory) {
+        return ChartFactory.buildTreeData(treeType, people, relations.relations);
       }
     },
   });

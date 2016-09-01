@@ -23,7 +23,8 @@ app.factory('ChartFactory', function($q) {
       return { nodes: nodes, links: links };
     },
 
-    buildTreeData: function(treeType, dbPeople, relations, spouses, startingPersonId) {
+    buildTreeData: function(treeType, dbPeople, relations, startingPersonId) {
+
       var initialIdx,
           nodesInit;
 

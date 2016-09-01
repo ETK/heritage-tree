@@ -86,11 +86,13 @@ app.factory('ChartFactory', function($q) {
         currPerson = queue.shift();
         // find & append children
         if(nextPeople[currPerson.id]) {
+          console.log('APPENDING PEOPLE TO ',currPerson.id)
           currPerson.nextPeople = nextPeople[currPerson.id].map( function(nextPersonId) {
             queue.push(people[nextPersonId]);
             return people[nextPersonId];
           });
         }
+        console.log(queue.length, ' TO GO')
       }
 
       console.log('DONE IN FACTORY')

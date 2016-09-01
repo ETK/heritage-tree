@@ -62,6 +62,7 @@ app.factory('ChartFactory', function($q) {
       });
 
       console.log('DONE PROCESSING RELATIONS')
+      console.log(nextPeople);
 
 
       // start final list of people with the target person
@@ -78,6 +79,7 @@ app.factory('ChartFactory', function($q) {
       }
 
       console.log('STARTING BREADTH FIRST TRAVERSAL')
+      console.log(queue);
 
 
       // use BST=>breadth first to continue appending parents
@@ -85,6 +87,7 @@ app.factory('ChartFactory', function($q) {
       while(queue.length) {
         currPerson = queue.shift();
         // find & append children
+        console.log('EVALUATING ',currPerson.id)
         if(nextPeople[currPerson.id]) {
           console.log('APPENDING PEOPLE TO ',currPerson.id)
           currPerson.nextPeople = nextPeople[currPerson.id].map( function(nextPersonId) {

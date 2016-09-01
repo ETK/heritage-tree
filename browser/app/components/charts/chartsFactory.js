@@ -94,7 +94,6 @@ app.factory('ChartFactory', function($q) {
 
       // Starting person - by default, me
       startingPersonId = startingPersonId || 1329;
-      console.log(startingPersonId);
 
       dbPeople.forEach( function(person, index) {
         // transform relations into key = person_id; value = basic values

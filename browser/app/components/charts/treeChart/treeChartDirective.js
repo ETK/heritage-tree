@@ -4,35 +4,42 @@ app.directive('treeChart', function(){
 		restrict: 'E',
     template: '<svg></svg>',
 		scope: {
-			data: '='
+			data: '=',
+			type: '=' // ancestor or descendant
 		},
 		controller: function($scope, $state, $rootScope) {
 
 			var data = $scope.data;
 
-			var width = window.innerWidth,
-          height = window.innerHeight;
+			var width = getWindowSize().width,
+          height = getWindowSize().height;
 
 			var svg = d3.select("svg")
 					.attr("width", width)
 					.attr("height", height);
 
-			var g = svg.append("g").attr("transform", "translate(40,0)");
+			var g = svg.append("g");
 
 			var tree = d3.tree()
 					// distance between sets of parents = 1/2 the distance between parents themselves
 					.separation( function(a,b) { return a.parent === b.parent ? 1 : .5; } )
-					.size([height, width - 160])
+					.size([width, height])
 					.nodeSize([50,1]);
 
-			var root = d3.hierarchy(data, function(d) { return d.parents });
-			root.x0 = height / 2;
-			root.y0 = 0;
+			// Initialize tree
+			var root = setupHierarchy(data);
 			update(root);
 			centerNode(root);
 
-			var i = 0,
-					duration = 750;
+			var i = 0, // TODO: what is this for?
+					duration = 750; // node transition duration in ms
+
+			function setupHierarchy(newData) {
+				let newHierarchy = d3.hierarchy(newData, function(d) { return d.parents });
+				newHierarchy.x0 = height / 2;
+				newHierarchy.y0 = 0;
+				return newHierarchy;
+			}
 
 			function update(source) {
 
@@ -43,7 +50,7 @@ app.directive('treeChart', function(){
 				// Normalize for fixed-depth
 				nodes.forEach(function(d) { d.y = d.depth * 200 });
 
-				// Update the nodes…
+				// Update the nodes
 			  var node = g.selectAll("g.node")
 			      .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
@@ -71,18 +78,9 @@ app.directive('treeChart', function(){
 						.attr("y", 10)
 						.attr("dy", ".35em")
 						.attr("text-anchor", function(d) { return "start"; })
-						.text(function(d) { return d.data.dates + (d.data.birth_location ? ' ' + d.data.birth_location : ''); })
+						.text(function(d) { return d.data.dates + (d.data.birth_location ? ' ' + d.data.birth_location : ''); });
 
-				// Append text for birth location
-				// nodeEnter.append("text")
-				// 		.attr("x", 10)
-				// 		.attr("y", 20)
-				// 		.attr("dy", ".35em")
-				// 		.attr("text-anchor", function(d) { return "start"; })
-				// 		.text(function(d) { return d.data.birth_location; })
-
-
-				// Transition nodes to their new position.
+				// Transition nodes to their new position
 			  var nodeUpdate = node.merge(nodeEnter).transition()
 			      .duration(duration)
 			      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
@@ -94,7 +92,7 @@ app.directive('treeChart', function(){
 			  nodeUpdate.select("text")
 			      .style("fill-opacity", 1);
 
-				// Transition exiting nodes to the parent's new position.
+				// Transition exiting nodes to the parent's new position
 			  var nodeExit = node.exit().transition()
 			      .duration(duration)
 			      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
@@ -106,7 +104,7 @@ app.directive('treeChart', function(){
 			  nodeExit.select("text")
 			      .style("fill-opacity", 1e-6);
 
-				// Update the links…
+				// Update the links
 			  var link = g.selectAll("path.link")
 						.data(links, function(link) { var id = link.id + '->' + link.parent.id; return id; });
 
@@ -154,39 +152,32 @@ app.directive('treeChart', function(){
 														+ ")scale("
 														+ d3.event.transform.k + ")");
 	    }
+
 			var zoomListener = d3.zoom()
 					.scaleExtent([0.1, 3])
 					.on("zoom", zoom);
 			svg.call(zoomListener);
 
-			// Handle node expansion/collapse
-	    function collapse(d) {
-	        if (d.children) {
-	            d._children = d.children;
-	            d._children.forEach(collapse);
-	            d.children = null;
-	        }
-	    }
 
-	    function expand(d) {
-	        if (d._children) {
-	            d.children = d._children;
-	            d.children.forEach(expand);
-	            d._children = null;
-	        }
-	    }
+			// Calculate window size
+			function getWindowSize() {
+				return {
+					width: window.innerWidth,
+					height: window.innerHeight - 100
+				};
+			}
 
 			// Handle window resize
 			d3.select(window).on("resize", resize);
 
 			function resize() {
-		    width = window.innerWidth, height = window.innerHeight;
-		    svg.attr("width", width).attr("height", height);
+		    svg.attr("width", getWindowSize().width)
+						.attr("height", getWindowSize().height);
 		  }
 
-			// Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
+			// Center node when clicked/dropped
 			function centerNode(source) {
-        var scale = d3.zoomTransform(source).k; // not working properly
+        var scale = d3.zoomTransform(source).k; // TODO: not working properly
         var x = -source.y0;
         var y = -source.x0;
         x = x * scale + width / 2;
@@ -196,26 +187,27 @@ app.directive('treeChart', function(){
             .attr("transform", "translate(" + x + "," + y + ")scale(" + scale + ")");
     	}
 
-			// Toggle children function
+			// Expand/collapse children
 			function toggleChildren(d) {
-					if (d.children) {
-							d._children = d.children;
-							d.children = null;
-					} else if (d._children) {
-							d.children = d._children;
-							d._children = null;
-					}
-					return d;
+				if (d.children) {
+					d._children = d.children;
+					d.children = null;
+				} else if (d._children) {
+					d.children = d._children;
+					d._children = null;
+				}
+				return d;
 			}
 
-			// Toggle children on click.
+			// Toggle children on click
 			function click(d) {
-					if (d3.event.defaultPrevented) return; // click suppressed
-					d = toggleChildren(d);
-					update(d);
-					centerNode(d);
+				if (d3.event.defaultPrevented) return; // click suppressed
+				d = toggleChildren(d);
+				update(d);
+				centerNode(d);
 			}
 
+			// Draw connectors between nodes
 			function connector(d) {
 			  return "M" + d.y + "," + d.x +
 			    "C" + (d.y + d.parent.y) / 2 + "," + d.x +
@@ -229,6 +221,7 @@ app.directive('treeChart', function(){
 				root.x0 = height / 2;
 				root.y0 = 0;
 				update(root);
+				centerNode(root);
 			});
 
     }

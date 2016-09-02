@@ -36,7 +36,7 @@ app.factory('ChartFactory', function($q) {
       else startingPersonId = startingPersonId || 972;
 
       dbPeople.forEach( function(person, index) {
-        console.log('PROCESSING PERSON # ',person.id)
+        // console.log('PROCESSING PERSON # ',person.id)
         // transform relations into key = person_id; value = basic values
         people[person.id] = {
           id: person.id,
@@ -46,7 +46,7 @@ app.factory('ChartFactory', function($q) {
         };
       });
 
-      console.log('DONE PROCESSING PEOPLE')
+      // console.log('DONE PROCESSING PEOPLE')
 
       // generate array of next nodes (parents or children) for each person
       // transform relations into key = person_id; value = array of children_ids
@@ -71,10 +71,12 @@ app.factory('ChartFactory', function($q) {
       console.log('initial nested people = ',nestedPeople)
 
       var queue = [];
+      var count = 0;
       // append next nodes
       if(nextPeople[startingPersonId]) {
         nestedPeople.nextPeople = nextPeople[startingPersonId].map( function(nextPersonId) {
           queue.push(people[nextPersonId]);
+          count++;
           return people[nextPersonId];
         })
         console.log(nestedPeople);
@@ -82,6 +84,8 @@ app.factory('ChartFactory', function($q) {
 
       console.log('STARTING BREADTH FIRST TRAVERSAL')
       console.log(queue);
+      console.log(count);
+
 
 
       // use BST=>breadth first to continue appending parents
@@ -91,13 +95,13 @@ app.factory('ChartFactory', function($q) {
         // find & append children
         console.log('EVALUATING ',currPerson.id)
         if(nextPeople[currPerson.id]) {
-          console.log('APPENDING PEOPLE TO ',currPerson.id)
+          console.log('---- APPENDING',nextPeople[currPerson.id].length,' PEOPLE TO ',currPerson.id)
           currPerson.nextPeople = nextPeople[currPerson.id].map( function(nextPersonId) {
             queue.push(people[nextPersonId]);
             return people[nextPersonId];
           });
         }
-        console.log(queue.length, ' TO GO')
+        console.log('DONE WITH ',currPerson.id,'; NUM IN QUEUE: ',queue.length)
       }
 
       console.log('DONE IN FACTORY')

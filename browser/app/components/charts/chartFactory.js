@@ -68,6 +68,7 @@ app.factory('ChartFactory', function($q) {
       // start final list of people with the target person
       // add him/her
       var nestedPeople = people[startingPersonId];
+      console.log('initial nested people = ',nestedPeople)
 
       var queue = [];
       // append next nodes
@@ -76,6 +77,7 @@ app.factory('ChartFactory', function($q) {
           queue.push(people[nextPersonId]);
           return people[nextPersonId];
         })
+        console.log(nestedPeople);
       }
 
       console.log('STARTING BREADTH FIRST TRAVERSAL')

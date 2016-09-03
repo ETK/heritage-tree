@@ -47,7 +47,7 @@
         <input id="birth_day_{{ person.id }}" type="text" class="form-control" ng-model="person.birth_day" ng-change="update(person)" length="2">
       </div>
       <!-- Died -->
-      <div class="form-group col-md-2 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-6">
+      <div class="form-group col-md-2 col-md-offset-4 col-sm-5 col-sm-offset-1 col-xs-6">
         <label for="death_year_{{ person.id }}">Died - Year</label>
         <input id="death_year_{{ person.id }}" type="text" class="form-control" ng-model="person.death_year" ng-change="update(person)" length="4">
       </div>
@@ -67,17 +67,17 @@
     </div>
     <div class="row form-input-row">
       <!-- Born -->
-      <div class="form-group col-md-4 col-sm-3 col-xs-4">
+      <div class="form-group col-md-4">
         <label for="birth_location_{{ person.id }}">Born</label>
         <input id="birth_location_{{ person.id }}" type="text" class="form-control" ng-model="person.birth_location" ng-change="update(person)">
       </div>
       <!-- Settled -->
-      <div class="form-group col-md-3 col-sm-3 col-xs-4">
+      <div class="form-group col-md-4">
         <label for="settle_location_{{ person.id }}">Settled</label>
         <input id="settle_location_{{ person.id }}" type="text" class="form-control" ng-model="person.settle_location" ng-change="update(person)">
       </div>
       <!-- Died -->
-      <div class="form-group col-md-4 col-sm-3 col-xs-4">
+      <div class="form-group col-md-4">
         <label for="death_location_{{ person.id }}">Died</label>
         <input id="death_location_{{ person.id }}" type="text" class="form-control" ng-model="person.death_location" ng-change="update(person)">
       </div>
@@ -90,7 +90,7 @@
     <div class="row form-input-row">
       <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <label for="notes_{{ person.id }}" ng-if="person.relation_to_grandpa">Notes</label>
-        <textarea id="notes_{{ person.id }}" type="text" class="form-control" ng-model="person.notes" ng-change="update(person)"></textarea>
+        <textarea id="notes_{{ person.id }}" type="text" class="form-control" rows="4" ng-model="person.notes" ng-change="update(person)"></textarea>
       </div>
     </div>
 

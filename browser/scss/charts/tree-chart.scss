@@ -1,21 +1,30 @@
 .node {
   cursor: pointer;
-}
 
-.node circle {
-  fill: #fff;
-  stroke: #FF0000;
-  stroke-width: 1.5px;
-}
+  circle {
+    fill: $leaf-green;
+    stroke: $leaf-green;
+    stroke-width: 3px;
+  }
 
-.node text {
-  font: 10px sans-serif;
+  circle.collapsed {
+    fill: $white;
+  }
+
+  text {
+    font: 10px sans-serif;
+  }
+
+  text.name {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
 }
 
 .link {
   fill: none;
-  stroke: #ccc;
-  stroke-width: 1.5px;
+  stroke: lighten($earth-brown, 35%);
+  stroke-width: 15px;
 }
 
 h3 {
@@ -23,11 +32,11 @@ h3 {
 }
 
 .floating-header {
+  background-color: $lighten-7;
   float: left;
   left: 10px;
   position: absolute;
   top: 63px;
-  background-color: $lighten-7;
 
   .input-group {
     max-width: 500px;

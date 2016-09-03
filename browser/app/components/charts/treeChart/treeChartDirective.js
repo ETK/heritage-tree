@@ -47,7 +47,7 @@ app.directive('treeChart', function(){
 						links = nodes.slice(1);
 
 				// Normalize for fixed-depth
-				nodes.forEach(function(d) { d.y = d.depth * 200 });
+				nodes.forEach(function(d) { d.y = d.depth * 250 });
 
 				// Update the nodes
 
@@ -62,22 +62,25 @@ app.directive('treeChart', function(){
 
 				nodeEnter.append("circle")
 			      .attr("r", 1e-6)
-			      .style("fill", function(d) { return d._children ? "#000000" : "#fff"; });
+						.attr("class", function(d) { return d._children ? "collapsed" : "open" });
 
 				// Append text for name
 			  nodeEnter.append("text")
-						.attr("x", 10)
+						.attr("x", 15)
+						.attr("y", -5)
 			      .attr("dy", ".35em")
 						.attr("text-anchor", function(d) { return "start"; })
+						.attr("class", "name")
 			      .text(function(d) { return d.data.name; })
 			      .style("fill-opacity", 1e-6);
 
 				// Append text for birth/death dates + location
 				nodeEnter.append("text")
-						.attr("x", 10)
-						.attr("y", 10)
+						.attr("x", 15)
+						.attr("y", 6)
 						.attr("dy", ".35em")
 						.attr("text-anchor", function(d) { return "start"; })
+						.attr("class", "details")
 						.text(function(d) { return d.data.dates + (d.data.birth_location ? ' ' + d.data.birth_location : ''); });
 
 				// Transition nodes to their new position
@@ -86,8 +89,8 @@ app.directive('treeChart', function(){
 			      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
 			  nodeUpdate.select("circle")
-			      .attr("r", 4.5)
-			      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+			      .attr("r", 8)
+						.attr("class", function(d) { return d._children ? "collapsed" : "open" });
 
 			  nodeUpdate.select("text")
 			      .style("fill-opacity", 1);

@@ -145,15 +145,10 @@ app.directive('treeChart', function(){
 			  });
 
 			}
-
+			
 			// Define the zoom function for the zoomable tree
 	    function zoom() {
-				g.attr("transform", "translate("
-														+ d3.event.transform.x
-														+ ','
-														+ d3.event.transform.y
-														+ ")scale("
-														+ d3.event.transform.k + ")");
+				g.attr("transform", d3.event.transform);
 	    }
 
 			var zoomListener = d3.zoom()
@@ -180,14 +175,18 @@ app.directive('treeChart', function(){
 
 			// Center node when clicked/dropped
 			function centerNode(source) {
-        var scale = d3.zoomTransform(source).k; // TODO: not working properly
-        var x = -source.y0;
-        var y = -source.x0;
-        x = x * scale + width / 2;
-        y = y * scale + height / 2;
-        d3.select('g').transition()
-            .duration(duration)
-            .attr("transform", "translate(" + x + "," + y + ")scale(" + scale + ")");
+			  var t = d3.zoomTransform(source);
+
+				var x = -source.y0;
+				x = x * t.k + width / 2;
+
+			  var y = -source.x0;
+				y = y * t.k + height / 2;
+
+			  g.transition()
+			   .duration(duration)
+			   .attr("transform", "translate(" + x + "," + y + ")scale(" + t.k + ")")
+			   .on("end", function(){ svg.call(zoomListener.transform, d3.zoomIdentity.translate(x,y).scale(t.k)) });
     	}
 
 			// Expand/collapse children

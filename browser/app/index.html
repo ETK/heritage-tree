@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="HeritageTree" lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="/" />
-  <title>Heritage Tree</title>
+  <title ng-bind="page.baseTitle + (page.title ? ' | ' + page.title : '')"></title>
   <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="/style.css" rel="stylesheet"/>
   <script src="/jquery/dist/jquery.min.js"></script>
@@ -21,7 +21,7 @@
   <script src="/socket.io-client/socket.io.js"></script>
   <script src="/main.js"></script>
 </head>
-<body ng-app="HeritageTree">
+<body>
   <navbar></navbar>
   <div id="main" ui-view></div>
 </body>

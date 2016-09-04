@@ -1,4 +1,5 @@
-app.controller('MilestonesController', function ($scope, milestones, people, MilestoneFactory, $state) {
+app.controller('MilestonesController', function ($scope, milestones, people, MilestoneFactory, $state, Title) {
+  Title.setTitle('Family Milestones');
 
   $scope.milestones = milestones;
   $scope.people = people;

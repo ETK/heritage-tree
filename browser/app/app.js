@@ -11,3 +11,14 @@ app.config(function ($urlRouterProvider, $locationProvider) {
   //     window.location.reload();
   // });
 });
+
+app.run(function($rootScope, Title, $state) {
+  $rootScope.page = {
+    baseTitle: 'HeritageTree'
+  }
+
+  // reset page title on state change; title may be set by Controllers
+  $rootScope.$on('$stateChangeSuccess', function() {
+    Title.resetTitle();
+  });
+});

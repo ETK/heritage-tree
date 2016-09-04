@@ -8,3 +8,4 @@ db/seeds/people.js
 db/maintenance
 reference/
 *.psd
+.env

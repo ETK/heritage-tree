@@ -22,6 +22,17 @@
       </button>
     </span>
   </div>
+  <!-- Change chart types -->
+  <div ng-if="treeType === 'ancestor' && startingPerson.id">
+    <h4><small>
+      Switch to <a ui-sref="descendantTreeChart({ startingId: startingPerson.id })">descendants</a>
+    </small></h4>
+  </div>
+  <div ng-if="treeType === 'descendant' && startingPerson.id">
+    <h4><small>
+      Switch to <a ui-sref="ancestorTreeChart({ startingId: startingPerson.id })">ancestors</a>
+    </small></h4>
+  </div>
 </div>
 
 <!-- chart -->

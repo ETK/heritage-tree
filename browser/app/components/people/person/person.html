@@ -148,8 +148,12 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-offset-2 col-xs-8">
           <div class="btn-group-vertical" role="group" style="width:100%">
-            <button type="button" class="btn btn-lg btn-default" style="width:100%" ui-sref="ancestorTreeChart({ startingId: person.id })">Ancestors tree</button>
-            <button type="button" class="btn btn-lg btn-default" style="width:100%" ui-sref="descendantTreeChart({ startingId: person.id })">Descendants tree</button>
+            <button type="button" class="btn btn-lg btn-default" style="width:100%" ui-sref="ancestorTreeChart({ startingId: person.id })">
+              <i class="fa fa-level-up" aria-hidden="true"></i> Ancestors tree
+            </button>
+            <button type="button" class="btn btn-lg btn-default" style="width:100%" ui-sref="descendantTreeChart({ startingId: person.id })">
+              <i class="fa fa-level-down" aria-hidden="true"></i> Descendants tree
+            </button>
           </div>
         </div>
       </div>

@@ -34,7 +34,7 @@
     </div>
     <div class="row form-input-row">
       <!-- Born -->
-      <div class="form-group col-md-2 col-sm-5 col-xs-6">
+      <div class="form-group col-md-2 col-sm-6 col-xs-6">
         <label for="birth_year_{{ person.id }}">Born - Year</label>
         <input id="birth_year_{{ person.id }}" type="text" class="form-control" ng-model="person.birth_year" ng-change="update(person)" length="4">
       </div>
@@ -47,7 +47,7 @@
         <input id="birth_day_{{ person.id }}" type="text" class="form-control" ng-model="person.birth_day" ng-change="update(person)" length="2">
       </div>
       <!-- Died -->
-      <div class="form-group col-md-2 col-md-offset-4 col-sm-5 col-sm-offset-1 col-xs-6">
+      <div class="form-group col-md-2 col-md-offset-4 col-sm-6 col-xs-6">
         <label for="death_year_{{ person.id }}">Died - Year</label>
         <input id="death_year_{{ person.id }}" type="text" class="form-control" ng-model="person.death_year" ng-change="update(person)" length="4">
       </div>

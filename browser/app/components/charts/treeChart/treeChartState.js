@@ -2,7 +2,7 @@ app.config(function ($stateProvider) {
 
   // Ancestor-based
   $stateProvider.state('ancestorTreeChart', {
-    url: '/charts/tree/ancestor',
+    url: '/charts/tree/ancestor/:startingId',
     templateUrl: 'components/charts/treeChart/tree.html',
     controller: 'TreeChartCtrl',
     resolve: {
@@ -15,15 +15,15 @@ app.config(function ($stateProvider) {
       treeType: function() {
         return 'ancestor';
       },
-      treeData: function(people, relations, treeType, ChartFactory) {
-        return ChartFactory.buildTreeData(treeType, people, relations.relations);
+      treeData: function(people, relations, treeType, ChartFactory, $stateParams) {
+        return ChartFactory.buildTreeData(treeType, people, relations.relations, $stateParams.startingId);
       }
     },
   });
 
   // Descendant-based
   $stateProvider.state('descendantTreeChart', {
-    url: '/charts/tree/descendant',
+    url: '/charts/tree/descendant/:startingId',
     templateUrl: 'components/charts/treeChart/tree.html',
     controller: 'TreeChartCtrl',
     resolve: {
@@ -36,8 +36,8 @@ app.config(function ($stateProvider) {
       treeType: function() {
         return 'descendant';
       },
-      treeData: function(people, relations, treeType, ChartFactory) {
-        return ChartFactory.buildTreeData(treeType, people, relations.relations);
+      treeData: function(people, relations, treeType, ChartFactory, $stateParams) {
+        return ChartFactory.buildTreeData(treeType, people, relations.relations, $stateParams.startingId);
       }
     },
   });

@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="/" />
-  <title ng-bind="page.baseTitle + (page.title ? ' | ' + page.title : '')"></title>
+  <title ng-bind="(page.title ? page.title + ' | ' : '') + page.baseTitle"></title>
   <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="/style.css" rel="stylesheet"/>
   <script src="/jquery/dist/jquery.min.js"></script>

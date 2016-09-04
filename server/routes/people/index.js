@@ -78,7 +78,7 @@ router.get('/', function(req, res, next) {
 });
 
 // create a person
-router.post('/', Auth.isAdmin, function(req, res, next) {
+router.post('/', Auth.assertAdmin, function(req, res, next) {
   People.create(req.body)
   .then(person => res.send(person))
   .catch(next);
@@ -95,14 +95,14 @@ router.get('/:personId', function(req, res, next) {
 });
 
 // update a person
-router.put('/:personId', Auth.isAdmin, function(req, res, next) {
+router.put('/:personId', Auth.assertAdmin, function(req, res, next) {
   req.person.update(req.body)
   .then(updatedPerson => res.status(200).send(updatedPerson))
   .catch(next);
 });
 
 // add parent
-router.post('/:personId/parents', Auth.isAdmin, function(req, res, next) {
+router.post('/:personId/parents', Auth.assertAdmin, function(req, res, next) {
   req.person.addParent(req.body.id)
   .then( function() {
     return People.findById(req.person.id, { include: allRelations });
@@ -112,7 +112,7 @@ router.post('/:personId/parents', Auth.isAdmin, function(req, res, next) {
 });
 
 // add child
-router.post('/:personId/children', Auth.isAdmin, function(req, res, next) {
+router.post('/:personId/children', Auth.assertAdmin, function(req, res, next) {
   req.person.addChild(req.body.id)
   .then( function() {
     return People.findById(req.person.id, { include: allRelations });
@@ -122,7 +122,7 @@ router.post('/:personId/children', Auth.isAdmin, function(req, res, next) {
 });
 
 // add spouse
-router.post('/:personId/spouses', Auth.isAdmin, function(req, res, next) {
+router.post('/:personId/spouses', Auth.assertAdmin, function(req, res, next) {
   Promise.all([
     req.person.addSpouse(req.body.id), // add spouse (B) to selected person (A)
     People.findById(req.body.id) // add selected person (A) as a spouse to person (B)
@@ -138,7 +138,7 @@ router.post('/:personId/spouses', Auth.isAdmin, function(req, res, next) {
 });
 
 // update spousal relationship
-router.put('/:personId/spouses/:spouseId', Auth.isAdmin, function(req, res,next) {
+router.put('/:personId/spouses/:spouseId', Auth.assertAdmin, function(req, res,next) {
   Spouses.update(req.body, { where: {
     $or: [
       { person_id: req.person.id,
@@ -156,7 +156,7 @@ router.put('/:personId/spouses/:spouseId', Auth.isAdmin, function(req, res,next)
 })
 
 // delete parent/child relationship
-router.delete('/:personId/relationships/:relativeId', Auth.isAdmin, function(req, res, next) {
+router.delete('/:personId/relationships/:relativeId', Auth.assertAdmin, function(req, res, next) {
   Promise.all([
     req.person.removeParent(req.params.relativeId),
     req.person.removeChild(req.params.relativeId)
@@ -166,7 +166,7 @@ router.delete('/:personId/relationships/:relativeId', Auth.isAdmin, function(req
 });
 
 // delete spousal relationship
-router.delete('/:personId/spouses/:spouseId', Auth.isAdmin, function(req, res, next) {
+router.delete('/:personId/spouses/:spouseId', Auth.assertAdmin, function(req, res, next) {
   Promise.all([
     req.person.removeSpouse(req.spouse.id),
     req.spouse.removeSpouse(req.person.id)

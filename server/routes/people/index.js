@@ -3,6 +3,7 @@ const router = require('express').Router();
 const db = require('../../../db/models').sequelize;
 const People = db.model('Person');
 const Spouses = db.model('Spouses');
+const Auth = require('../../middleware/auth-middleware');
 
 module.exports = router;
 
@@ -17,13 +18,37 @@ const allRelations = [{
   as: 'Spouses'
 }];
 
+function redactDetails(person) {
+  if(!person.death_year && (!person.birth_year || person.birth_year > 1940) && person.id != 1329) {
+    person.first_name = '[redacted]';
+    person.middle_name = null;
+    person.nick_name = null;
+    person.suffix = null;
+    person.birth_month = null;
+    person.birth_day = null;
+    person.notes = null;
+  }
+  // Redact personal information from me
+  else if(person.id === 1329) {
+    person.middle_name = null;
+    person.nick_name = null;
+    person.suffix = null;
+    person.birth_month = null;
+    person.birth_day = null;
+    person.birth_location = null;
+    person.notes = null;
+  }
+  return person;
+}
+
 router.use('/relations', require('./relations'));
 
 router.param('personId', function(req, res, next, id) {
   People.findById(id)
   .then(function(person) {
     if (!person) res.status(404).end();
-    req.person = person;
+    if(Auth.isAuthenticated(req)) req.person = person;
+    else req.person = redactDetails(person);
     next();
   }).catch(next);
 });
@@ -45,12 +70,15 @@ router.get('/', function(req, res, next) {
     options.include = null;
   }
   People.findAll(options)
-  .then(people => res.send(people))
+  .then(people => {
+    if(Auth.isAuthenticated(req)) res.send(people);
+    else res.send(people.map(redactDetails));
+  })
   .catch(next);
 });
 
 // create a person
-router.post('/', function(req, res, next) {
+router.post('/', Auth.isAdmin, function(req, res, next) {
   People.create(req.body)
   .then(person => res.send(person))
   .catch(next);
@@ -59,19 +87,22 @@ router.post('/', function(req, res, next) {
 // one person
 router.get('/:personId', function(req, res, next) {
   People.findById(req.params.personId, { include: allRelations })
-  .then(person => res.send(person))
+  .then(person => {
+    if(Auth.isAuthenticated(req)) res.send(person);
+    else res.send(redactDetails(person));
+  })
   .catch(next);
 });
 
 // update a person
-router.put('/:personId', function(req, res, next) {
+router.put('/:personId', Auth.isAdmin, function(req, res, next) {
   req.person.update(req.body)
   .then(updatedPerson => res.status(200).send(updatedPerson))
   .catch(next);
 });
 
 // add parent
-router.post('/:personId/parents', function(req, res, next) {
+router.post('/:personId/parents', Auth.isAdmin, function(req, res, next) {
   req.person.addParent(req.body.id)
   .then( function() {
     return People.findById(req.person.id, { include: allRelations });
@@ -81,7 +112,7 @@ router.post('/:personId/parents', function(req, res, next) {
 });
 
 // add child
-router.post('/:personId/children', function(req, res, next) {
+router.post('/:personId/children', Auth.isAdmin, function(req, res, next) {
   req.person.addChild(req.body.id)
   .then( function() {
     return People.findById(req.person.id, { include: allRelations });
@@ -91,7 +122,7 @@ router.post('/:personId/children', function(req, res, next) {
 });
 
 // add spouse
-router.post('/:personId/spouses', function(req, res, next) {
+router.post('/:personId/spouses', Auth.isAdmin, function(req, res, next) {
   Promise.all([
     req.person.addSpouse(req.body.id), // add spouse (B) to selected person (A)
     People.findById(req.body.id) // add selected person (A) as a spouse to person (B)
@@ -107,7 +138,7 @@ router.post('/:personId/spouses', function(req, res, next) {
 });
 
 // update spousal relationship
-router.put('/:personId/spouses/:spouseId', function(req, res,next) {
+router.put('/:personId/spouses/:spouseId', Auth.isAdmin, function(req, res,next) {
   Spouses.update(req.body, { where: {
     $or: [
       { person_id: req.person.id,
@@ -125,7 +156,7 @@ router.put('/:personId/spouses/:spouseId', function(req, res,next) {
 })
 
 // delete parent/child relationship
-router.delete('/:personId/relationships/:relativeId', function(req, res, next) {
+router.delete('/:personId/relationships/:relativeId', Auth.isAdmin, function(req, res, next) {
   Promise.all([
     req.person.removeParent(req.params.relativeId),
     req.person.removeChild(req.params.relativeId)
@@ -135,7 +166,7 @@ router.delete('/:personId/relationships/:relativeId', function(req, res, next) {
 });
 
 // delete spousal relationship
-router.delete('/:personId/spouses/:spouseId', function(req, res, next) {
+router.delete('/:personId/spouses/:spouseId', Auth.isAdmin, function(req, res, next) {
   Promise.all([
     req.person.removeSpouse(req.spouse.id),
     req.spouse.removeSpouse(req.person.id)

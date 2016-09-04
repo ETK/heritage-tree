@@ -11,7 +11,6 @@ module.exports = function(sequelize, DataTypes) {
     middle_name: DataTypes.STRING,
     nick_name: DataTypes.STRING,
     suffix: DataTypes.STRING,
-    relation_to_grandpa: DataTypes.STRING,
     gender: DataTypes.STRING,
     birth_location: DataTypes.STRING,
     birth_year: DataTypes.INTEGER,

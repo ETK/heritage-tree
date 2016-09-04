@@ -59,7 +59,23 @@
         </li>
 
       </ul>
-    </div>
 
+      <!-- user controls -->
+      <ul class="nav navbar-nav navbar-right">
+        <!-- logged in -->
+        <li ng-if="user">
+          <a href="#" ng-click="logout()">
+            <i class="fa fa-sign-out"></i> Logout
+          </a>
+        </li>
+        <!-- not logged in -->
+        <li ng-if="!user">
+          <a ui-sref="login">
+            <i class="fa fa-sign-in"></i> Family login
+          </a>
+        </li>
+      </ul>
+
+    </div>
   </div>
 </nav>

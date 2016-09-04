@@ -1,4 +1,7 @@
 'use strict';
+const crypto = require('crypto');
+const _ = require('lodash');
+
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     user_name: {

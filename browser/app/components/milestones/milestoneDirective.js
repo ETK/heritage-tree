@@ -3,7 +3,8 @@ app.directive('milestone', function (MilestoneFactory, $state) {
     restrict: 'E',
     scope: {
       details: '=',
-      people: '=?' // optional - used for add person
+      people: '=?', // optional - used for add person
+      edittable: '=?'
     },
     templateUrl: 'components/milestones/milestone.html',
     link: function (scope) {

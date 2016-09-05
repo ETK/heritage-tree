@@ -1,5 +1,6 @@
-app.controller('MilestonesController', function ($scope, milestones, people, MilestoneFactory, $state, Title) {
+app.controller('MilestonesController', function ($scope, $rootScope, milestones, people, MilestoneFactory, $state, Title) {
   Title.setTitle('Family Milestones');
+  $scope.edittable = $rootScope.user && $rootScope.user.is_admin;
 
   $scope.milestones = milestones;
   $scope.people = people;

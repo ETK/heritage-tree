@@ -6,18 +6,16 @@
   <!-- Collapsable body -->
   <div class="panel-collapse collapse" id="milestone-collapse-{{ details.id }}" role="tabpanel">
      <div class="panel-body">
-       <textarea type="text" class="form-control" ng-model="details.description" ng-change="update(details)" rows="4"></textarea>
-
-       <!-- {{ details.description }} -->
+       <textarea type="text" class="form-control" ng-model="details.description" ng-change="update(details)" rows="4" ng-readonly="!edittable"></textarea>
 
      </div>
      <div class="panel-body">
 
        <!-- list of people associated with this milestone -->
-       <people-list people="details.MilestonePeople" type="'milestone'" remove-fn="removePerson" paginate="false"></people-list>
+       <people-list people="details.MilestonePeople" type="'milestone'" edittable="edittable" remove-fn="removePerson" paginate="false"></people-list>
 
        <!-- add a person to this milestone -->
-       <div class="input-group input-group-sm" ng-if="people" style="max-width: 500px">
+       <div class="input-group input-group-sm" ng-if="people && edittable" style="max-width: 500px">
          <span class="input-group-addon">Tag a person </span>
          <input
            type="text"
@@ -35,7 +33,7 @@
        </div>
 
      </div>
-     <div class="panel-body">
+     <div class="panel-body" ng-if="edittable">
 
        <button type="button" class="btn btn-xs btn-danger pull-right" ng-click="removeMilestone()">
          <i class="fa fa-times-circle" aria-hidden="true"></i>

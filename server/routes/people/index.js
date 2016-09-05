@@ -30,7 +30,7 @@ function makeRedactions(person) {
     person.notes = null;
   }
   // Redact personal information from me
-  else if(person.id === 1329) {
+  else if(person.id == 1329) {
     person.middle_name = null;
     person.nick_name = null;
     person.suffix = null;

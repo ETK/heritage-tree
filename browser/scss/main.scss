@@ -1,3 +1,5 @@
+@import 'colors';
+
 * {
   box-sizing: border-box;
 }
@@ -12,11 +14,14 @@
 
 html {
   font-weight: 300;
+  position: relative;
+  min-height: 100%;
 }
 
 body {
   background: #fff;
   margin-top: 53px;
+  margin-bottom: 25px;
 }
 
 .logo {
@@ -27,7 +32,15 @@ body {
   font-weight: 300;
 }
 
-@import 'colors';
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background-color: #f5f5f5;
+}
+
+
 @import 'bootstrap-customize';
 @import 'navbar';
 @import 'typography';

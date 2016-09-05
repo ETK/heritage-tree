@@ -53,6 +53,6 @@
     "sqlite3": "^3.1.4"
   },
   "devDependencies": {
-    "dotenv": "^2.0.0",
+    "dotenv": "^2.0.0"
   }
 }

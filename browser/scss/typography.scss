@@ -1,0 +1,117 @@
+
+// fonts
+$font-weight-thin: 200;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-heavy: 700;
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+// weights
+.font-thin {
+  font-weight: $font-weight-thin;
+}
+
+.font-light {
+  font-weight: $font-weight-light;
+}
+
+.font-regular {
+  font-weight: $font-weight-regular;
+}
+
+.font-heavy {
+  font-weight: $font-weight-heavy;
+}
+
+.wide-spacing {
+  letter-spacing: 1.25rem !important;
+}
+
+.inline-text {
+  display: inline;
+}
+
+// colors
+.highlight {
+  color: $leaf-green !important;
+}
+
+.highlight-alt {
+  color: $gold !important;
+}
+
+.light-text-1 {
+  color: $lighten-1;
+}
+
+.light-text-2 {
+  color: $lighten-2;
+}
+
+.light-text-3 {
+  color: $lighten-3;
+}
+
+.light-text-4 {
+  color: $lighten-4;
+}
+
+.light-text-5 {
+  color: $lighten-5;
+}
+
+.light-text-6 {
+  color: $lighten-6;
+}
+
+.light-text-7 {
+  color: $lighten-7;
+}
+
+.light-text-8 {
+  color: $lighten-8;
+}
+
+.light-text-9 {
+  color: $lighten-9;
+}
+
+
+.dark-text-1 {
+  color: $darken-1;
+}
+
+.dark-text-2 {
+  color: $darken-2;
+}
+
+.dark-text-3 {
+  color: $darken-3;
+}
+
+.dark-text-4 {
+  color: $darken-4;
+}
+
+.dark-text-5 {
+  color: $darken-5;
+}
+
+.dark-text-6 {
+  color: $darken-6;
+}
+
+.dark-text-7 {
+  color: $darken-7;
+}
+
+.dark-text-8 {
+  color: $darken-8;
+}
+
+.dark-text-9 {
+  color: $darken-9;
+}

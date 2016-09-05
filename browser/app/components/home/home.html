@@ -1,0 +1,30 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Welcome to Heritage Tree</h1>
+    <p>An interactive and visualized study of the Szymanowski, Lincoln, Hendrickson, and Wells families.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-12">
+
+      <h3>
+        Sample charts
+      </h3>
+
+      <div class="list-group">
+        <a ng-repeat="chart in quickCharts" ng-href="/charts/tree/{{ chart.type }}/{{ chart.startingId }}" href="" class="list-group-item">
+          <h4 class="list-group-item-heading font-regular highlight inline-text">
+            <i class="fa fa-leaf dark-text-3" aria-hidden="true"></i>
+            &nbsp;{{ chart.label }}
+          </h4>
+          <h5 class="list-group-item-text font-regular dark-text-5 inline-text">
+            {{ chart.description }}
+          </h5>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

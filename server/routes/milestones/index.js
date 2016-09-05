@@ -10,7 +10,31 @@ module.exports = router;
 const includePeople = [{
   model: People,
   as: 'MilestonePeople'
-}]
+}];
+
+// TODO: refactor with People routes
+function redactDetails(person) {
+  if(!person.death_year && (!person.birth_year || person.birth_year > 1940) && person.id !== 1329) {
+    person.first_name = '[redacted]';
+    person.middle_name = null;
+    person.nick_name = null;
+    person.suffix = null;
+    person.birth_month = null;
+    person.birth_day = null;
+    person.notes = null;
+  }
+  // Redact personal information from me
+  else if(person.id === 1329) {
+    person.middle_name = null;
+    person.nick_name = null;
+    person.suffix = null;
+    person.birth_month = null;
+    person.birth_day = null;
+    person.birth_location = null;
+    person.notes = null;
+  }
+  return person;
+}
 
 router.param('milestoneId', function(req, res, next, id) {
   Milestone.findById(id, { include: includePeople })
@@ -24,7 +48,15 @@ router.param('milestoneId', function(req, res, next, id) {
 // all milestones
 router.get('/', function(req, res, next) {
   Milestone.findAll({ include: includePeople })
-  .then(milestones => res.send(milestones))
+  .then(milestones => {
+    if(Auth.isAuthenticated(req)) res.send(milestones);
+    else {
+      milestones.forEach(function(milestone) {
+        milestone.MilestonePeople.map(redactDetails);
+      });
+      res.send(milestones);
+    }
+  })
   .catch(next);
 });
 
@@ -33,11 +65,6 @@ router.post('/', Auth.assertAdmin, function(req, res, next) {
   Milestone.create(req.body)
   .then(milestone => res.send(milestone))
   .catch(next);
-});
-
-// one milestone
-router.get('/:milestoneId', function(req, res) {
-  res.send(req.milestone);
 });
 
 // update a milestone
@@ -83,6 +110,14 @@ router.get('/person/:personId', function(req, res, next) {
       where: { id: req.params.personId }
     }]
   })
-  .then(milestones => res.send(milestones))
+  .then(milestones => {
+    if(Auth.isAuthenticated(req)) res.send(milestones);
+    else {
+      milestones.forEach(function(milestone) {
+        milestone.MilestonePeople.map(redactDetails);
+      });
+      res.send(milestones);
+    }
+  })
   .catch(next);
 });

@@ -18,8 +18,9 @@ const allRelations = [{
   as: 'Spouses'
 }];
 
-function redactDetails(person) {
-  if(!person.death_year && (!person.birth_year || person.birth_year > 1940) && person.id != 1329) {
+// TODO: refactor with Milestone routes
+function makeRedactions(person) {
+  if(!person.death_year && (!person.birth_year || person.birth_year > 1940) && person.id !== 1329) {
     person.first_name = '[redacted]';
     person.middle_name = null;
     person.nick_name = null;
@@ -39,6 +40,13 @@ function redactDetails(person) {
     person.notes = null;
   }
   return person;
+}
+
+function redactDetails(person) {
+  if(person.Parents && person.Parents.length) person.Parents = person.Parents.map(makeRedactions); // redact parents
+  if(person.Children && person.Children.length) person.Children = person.Children.map(makeRedactions); // redact children
+  if(person.Spouses && person.Spouses.length) person.Spouses = person.Spouses.map(makeRedactions); // redact spouses
+  return makeRedactions(person); // redact self
 }
 
 router.use('/relations', require('./relations'));

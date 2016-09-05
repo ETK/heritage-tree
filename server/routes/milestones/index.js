@@ -14,7 +14,7 @@ const includePeople = [{
 
 // TODO: refactor with People routes
 function redactDetails(person) {
-  if(!person.death_year && (!person.birth_year || person.birth_year > 1940) && person.id !== 1329) {
+  if(!person.death_year && (!person.birth_year || person.birth_year > 1940) && person.id != 1329) {
     person.first_name = '[redacted]';
     person.middle_name = null;
     person.nick_name = null;

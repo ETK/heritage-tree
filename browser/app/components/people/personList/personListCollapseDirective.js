@@ -9,6 +9,8 @@ app.directive('personListCollapse', function ($rootScope, PeopleFactory) {
       scope.update = function(updates) {
         return PeopleFactory.updatePerson(scope.person.id, updates);
       }
+
+      console.log($rootScope.user)
     }
   }
 });

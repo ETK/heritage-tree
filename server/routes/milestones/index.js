@@ -3,6 +3,7 @@ const router = require('express').Router();
 const db = require('../../../db/models').sequelize;
 const Milestone = db.model('Milestone');
 const People = db.model('Person');
+const Auth = require('../../middleware/auth-middleware');
 
 module.exports = router;
 

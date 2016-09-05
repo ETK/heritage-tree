@@ -8,7 +8,8 @@ app.directive('peopleList', function (PeopleFactory, MilestoneFactory) {
       paginate: '=?',
       numPerPage: '=?',
       paginationId: '=?',
-      removeFn: '='
+      removeFn: '=',
+      edittable: '=?'
     },
     templateUrl: 'components/people/peopleList/peopleList.html',
     link: function(scope) {

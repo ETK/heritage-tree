@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-md-12">
 
-          <person-list-collapse person="person"></person-list-collapse>
+          <person-list-collapse person="person" edittable="edittable"></person-list-collapse>
 
         </div>
       </div>
@@ -34,9 +34,9 @@
 
           <div class="panel-collapse collapse in" id="collapseParents" role="tabpanel">
 
-            <people-list people="person.Parents" person="person" paginate="false"></people-list>
+            <people-list people="person.Parents" person="person" edittable="edittable" paginate="false"></people-list>
 
-            <div class="form-inline">
+            <div class="form-inline" ng-if="edittable">
               <div class="form-group">
                 <label for="parent_name">Parent Name</label>
                 <input
@@ -69,9 +69,9 @@
 
           <div class="panel-collapse collapse in" id="collapseSpouses" role="tabpanel">
 
-            <people-list people="person.Spouses" person="person" type="'spouses'" paginate="false"></people-list>
+            <people-list people="person.Spouses" person="person" edittable="edittable" type="'spouses'" paginate="false"></people-list>
 
-            <div class="form-inline">
+            <div class="form-inline" ng-if="edittable">
               <div class="form-group">
                 <label for="spouse_name">Spouse Name</label>
                 <input
@@ -104,9 +104,9 @@
 
           <div class="panel-collapse collapse in" id="collapseChildren" role="tabpanel">
 
-            <people-list people="person.Children" person="person" paginate="false"></people-list>
+            <people-list people="person.Children" person="person" edittable="edittable" paginate="false"></people-list>
 
-            <div class="form-inline">
+            <div class="form-inline" ng-if="edittable">
               <div class="form-group">
                 <label for="child_name">Child Name</label>
                 <input

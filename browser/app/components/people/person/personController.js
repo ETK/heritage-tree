@@ -1,4 +1,5 @@
-app.controller('PersonController', function ($scope, $state, people, person, PeopleFactory, milestones, Title) {
+app.controller('PersonController', function ($scope, $rootScope, $state, people, person, PeopleFactory, milestones, Title) {
+  $scope.edittable = $rootScope.user && $rootScope.user.is_admin;
   $scope.people = people;
   $scope.person = person;
   $scope.person.milestones = milestones;

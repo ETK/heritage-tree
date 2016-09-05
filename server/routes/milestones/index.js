@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 });
 
 // create a milestone
-router.post('/', function(req, res, next) {
+router.post('/', Auth.assertAdmin, function(req, res, next) {
   Milestone.create(req.body)
   .then(milestone => res.send(milestone))
   .catch(next);
@@ -40,21 +40,21 @@ router.get('/:milestoneId', function(req, res) {
 });
 
 // update a milestone
-router.put('/:milestoneId', function(req, res, next) {
+router.put('/:milestoneId', Auth.assertAdmin, function(req, res, next) {
   req.milestone.update(req.body)
   .then(updatedMilestone => res.status(200).send(updatedMilestone))
   .catch(next);
 });
 
 // delete a milestone
-router.delete('/:milestoneId', function(req, res, next) {
+router.delete('/:milestoneId', Auth.assertAdmin, function(req, res, next) {
   req.milestone.destroy()
   .then(() => res.status(204).end())
   .catch(next);
 });
 
 // associate a person to a milestone
-router.post('/:milestoneId/person', function(req, res, next) {
+router.post('/:milestoneId/person', Auth.assertAdmin, function(req, res, next) {
   req.milestone.addMilestonePerson(req.body.id)
   .then( function() {
     return Milestone.findById(req.params.milestoneId, { include: includePeople });
@@ -64,7 +64,7 @@ router.post('/:milestoneId/person', function(req, res, next) {
 });
 
 // delete milestone/person relationship
-router.delete('/:milestoneId/person/:personId', function(req, res, next) {
+router.delete('/:milestoneId/person/:personId', Auth.assertAdmin, function(req, res, next) {
   req.milestone.removeMilestonePerson(req.params.personId)
   .then( function() {
     return Milestone.findById(req.params.milestoneId, { include: includePeople });

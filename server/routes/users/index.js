@@ -7,7 +7,6 @@ module.exports = router;
 
 // Create a user
 router.post('/', function(req, res, next) {
-  console.log(req.body)
   if(!req.body.user_name || !req.body.password) {
     res.status(400).send('Missing required new user data.');
   } else {

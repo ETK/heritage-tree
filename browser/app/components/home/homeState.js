@@ -9,6 +9,7 @@ app.config(function ($stateProvider) {
         { label: 'Lincoln family', description: 'Dating back to 15th Century England', type: 'ancestor', startingId: 665 },
         { label: 'Hendrickson family', description: 'Dating back to 12th Century Netherlands', type: 'ancestor', startingId: 1335 },
         { label: 'Wells family', description: 'Dating back to 19th Century England', type: 'ancestor', startingId: 1336 },
+        { label: 'Mayflower descendants', description: 'Thomas Rogers & son, passengers on the Mayflower in 1620', type: 'descendant', startingId: 2404 },
         { label: 'Common ancestry with Abraham Lincoln', description: 'Common ancestry with President Lincoln dates to 1525', type: 'descendant', startingId: 970 },
         { label: 'Lincoln family relationship to John Locke', description: 'Common ancestry with English philosopher dates to 1517', type: 'descendant', startingId: 2316 },
         { label: 'Lincoln family relationship to B.F. Goodrich', description: 'Common ancestry with early tire innovator dates to 1663', type: 'descendant', startingId: 2068 },
